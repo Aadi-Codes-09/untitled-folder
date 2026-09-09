@@ -1,0 +1,799 @@
+export const chestPainInterviewFlow = [
+  {
+    id: 'q1',
+    key: 'site',
+    question: {
+      en: 'Where exactly is the chest pain located?',
+      hi: 'सीने में दर्द कहाँ पर है?'
+    },
+    type: 'single',
+    options: [
+      { id: 'center', label: { en: 'Center of chest', hi: 'सीने के बीच में' }, value: 'Central/Retrosternal' },
+      { id: 'left', label: { en: 'Left side of chest', hi: 'सीने के बाईं ओर' }, value: 'Left lateral' },
+      { id: 'right', label: { en: 'Right side of chest', hi: 'सीने के दाईं ओर' }, value: 'Right lateral' },
+      { id: 'epigastric', label: { en: 'Upper abdomen/stomach area', hi: 'पेट के ऊपरी हिस्से में' }, value: 'Epigastric' },
+      { id: 'radiating', label: { en: 'Radiating to arm/jaw/back', hi: 'बांह, जबड़े या पीठ तक फैल रहा है' }, value: 'Radiating', isRedFlag: true },
+    ],
+    followUp: null,
+  },
+  {
+    id: 'q2',
+    key: 'onset',
+    question: {
+      en: 'When did the pain start?',
+      hi: 'दर्द कब शुरू हुआ?'
+    },
+    type: 'single',
+    options: [
+      { id: 'sudden', label: { en: 'Suddenly (within seconds/minutes)', hi: 'अचानक (सेकंड/मिनट में)' }, value: 'Sudden onset', isRedFlag: true },
+      { id: 'gradual', label: { en: 'Gradually over hours/days', hi: 'धीरे-धीरे (घंटों/दिनों में)' }, value: 'Gradual onset' },
+      { id: 'exertion', label: { en: 'During physical activity', hi: 'शारीरिक गतिविधि के दौरान' }, value: 'Exertional onset' },
+      { id: 'rest', label: { en: 'While at rest', hi: 'आराम करते समय' }, value: 'At rest' },
+      { id: 'waking', label: { en: 'Woke me up from sleep', hi: 'नींद से जगा दिया' }, value: 'Nocturnal', isRedFlag: true },
+    ],
+    followUp: null,
+  },
+  {
+    id: 'q3',
+    key: 'character',
+    question: {
+      en: 'How would you describe the pain?',
+      hi: 'दर्द कैसा महसूस हो रहा है?'
+    },
+    type: 'single',
+    options: [
+      { id: 'crushing', label: { en: 'Crushing / Heavy / Tight', hi: 'दबाने वाला / भारी / कसा हुआ' }, value: 'Crushing/Heavy', isRedFlag: true },
+      { id: 'sharp', label: { en: 'Sharp / Stabbing', hi: 'चुभने वाला / तेज़' }, value: 'Sharp/Stabbing' },
+      { id: 'burning', label: { en: 'Burning', hi: 'जलने वाला' }, value: 'Burning' },
+      { id: 'aching', label: { en: 'Dull / Aching', hi: 'हल्का / सुस्त दर्द' }, value: 'Dull/Aching' },
+      { id: 'pressure', label: { en: 'Pressure / Squeezing', hi: 'दबाव / निचोड़ने जैसा' }, value: 'Pressure/Squeezing', isRedFlag: true },
+    ],
+    followUp: null,
+  },
+  {
+    id: 'q4',
+    key: 'radiation',
+    question: {
+      en: 'Does the pain travel anywhere else?',
+      hi: 'क्या दर्द कहीं और भी जाता है?'
+    },
+    type: 'multi',
+    options: [
+      { id: 'left_arm', label: { en: 'Left arm / shoulder', hi: 'बाएं कंधे/बांह में' }, value: 'Left arm radiation', isRedFlag: true },
+      { id: 'right_arm', label: { en: 'Right arm / shoulder', hi: 'दाएं कंधे/बांह में' }, value: 'Right arm radiation' },
+      { id: 'jaw', label: { en: 'Jaw / teeth', hi: 'जबड़े/दांतों में' }, value: 'Jaw radiation', isRedFlag: true },
+      { id: 'back', label: { en: 'Back / between shoulder blades', hi: 'पीठ में / कंधों के बीच' }, value: 'Back radiation', isRedFlag: true },
+      { id: 'neck', label: { en: 'Neck', hi: 'गर्दन में' }, value: 'Neck radiation' },
+      { id: 'none', label: { en: 'Nowhere - stays in chest', hi: 'नहीं, सिर्फ सीने में है' }, value: 'No radiation', exclusive: true },
+    ],
+    followUp: null,
+  },
+  {
+    id: 'q5',
+    key: 'associated',
+    question: {
+      en: 'Are you experiencing any of these other symptoms?',
+      hi: 'क्या आपको ये अन्य लक्षण भी हैं?'
+    },
+    type: 'multi',
+    options: [
+      { id: 'sob', label: { en: 'Shortness of breath', hi: 'सांस फूलना / सांस लेने में तकलीफ' }, value: 'Dyspnea', isRedFlag: true },
+      { id: 'sweating', label: { en: 'Cold sweats', hi: 'ठंडा पसीना आना' }, value: 'Diaphoresis', isRedFlag: true },
+      { id: 'nausea', label: { en: 'Nausea / Vomiting', hi: 'मतली / उल्टी' }, value: 'Nausea/Vomiting' },
+      { id: 'dizziness', label: { en: 'Dizziness / Fainting', hi: 'चक्कर आना / बेहोशी' }, value: 'Dizziness/Syncope', isRedFlag: true },
+      { id: 'palpitations', label: { en: 'Palpitations (racing heart)', hi: 'दिल तेज़ धड़कना' }, value: 'Palpitations' },
+      { id: 'none', label: { en: 'None of the above', hi: 'इनमें से कोई नहीं' }, value: 'None', exclusive: true },
+    ],
+    followUp: null,
+  },
+  {
+    id: 'q6',
+    key: 'timing',
+    question: {
+      en: 'How long does each episode of pain last?',
+      hi: 'दर्द का प्रत्येक दौर कितनी देर रहता है?'
+    },
+    type: 'single',
+    options: [
+      { id: 'seconds', label: { en: 'Few seconds', hi: 'कुछ सेकंड' }, value: 'Seconds' },
+      { id: 'minutes', label: { en: 'Minutes (5-20 min)', hi: 'मिनट (5-20 मिनट)' }, value: 'Minutes' },
+      { id: 'prolonged', label: { en: 'More than 20 minutes', hi: '20 मिनट से ज्यादा' }, value: 'Prolonged >20min', isRedFlag: true },
+      { id: 'hours', label: { en: 'Hours', hi: 'घंटों' }, value: 'Hours' },
+      { id: 'constant', label: { en: 'Constant / doesn\'t go away', hi: 'लगातार / जाता नहीं' }, value: 'Constant', isRedFlag: true },
+    ],
+    followUp: null,
+  },
+  {
+    id: 'q7',
+    key: 'exacerbating',
+    question: {
+      en: 'What makes the pain worse?',
+      hi: 'क्या करने से दर्द बढ़ता है?'
+    },
+    type: 'multi',
+    options: [
+      { id: 'exertion', label: { en: 'Physical activity / walking', hi: 'चलने/काम करने से' }, value: 'Exertion' },
+      { id: 'breathing', label: { en: 'Deep breathing / coughing', hi: 'गहरी सांस लेने/खांसने से' }, value: 'Respiratory movement' },
+      { id: 'position', label: { en: 'Lying flat', hi: 'सीधा लेटने से' }, value: 'Supine position' },
+      { id: 'eating', label: { en: 'After eating', hi: 'खाने के बाद' }, value: 'Post-prandial' },
+      { id: 'stress', label: { en: 'Emotional stress', hi: 'तनाव/चिंता से' }, value: 'Emotional stress' },
+      { id: 'nothing', label: { en: 'Nothing specific / occurs at rest', hi: 'कुछ खास नहीं / आराम में भी होता है' }, value: 'No specific trigger', isRedFlag: true },
+    ],
+    followUp: null,
+  },
+  {
+    id: 'q8',
+    key: 'relieving',
+    question: {
+      en: 'What makes the pain better?',
+      hi: 'क्या करने से दर्द कम होता है?'
+    },
+    type: 'multi',
+    options: [
+      { id: 'rest', label: { en: 'Rest / stopping activity', hi: 'आराम करने से / रुकने से' }, value: 'Rest' },
+      { id: 'nitroglycerin', label: { en: 'Nitroglycerin / Sorbitrate tablet', hi: 'सोरबिट्रेट/नाइट्रोग्लिसरीन गोली से' }, value: 'Nitrates' },
+      { id: 'position_change', label: { en: 'Sitting up / leaning forward', hi: 'बैठने से / आगे झुकने से' }, value: 'Position change' },
+      { id: 'antacid', label: { en: 'Antacid / cold milk', hi: 'एंटासिड/ठंडा दूध से' }, value: 'Antacid' },
+      { id: 'nothing', label: { en: 'Nothing helps', hi: 'कुछ भी आराम नहीं देता' }, value: 'No relief', isRedFlag: true },
+    ],
+    followUp: null,
+  },
+  {
+    id: 'q9',
+    key: 'severity',
+    question: {
+      en: 'On a scale of 1-10, how severe is the pain?',
+      hi: '1 से 10 के पैमाने पर दर्द कितना तेज़ है?'
+    },
+    type: 'scale',
+    min: 1,
+    max: 10,
+    labels: {
+      en: ['Mild', '', '', 'Moderate', '', '', 'Severe', '', '', 'Worst imaginable'],
+      hi: ['हल्का', '', '', 'मध्यम', '', '', 'तेज़', '', '', 'असहनीय']
+    },
+    followUp: null,
+  },
+  {
+    id: 'q10',
+    key: 'history',
+    question: {
+      en: 'Do you have any of these medical conditions?',
+      hi: 'क्या आपको ये बीमारियाँ हैं?'
+    },
+    type: 'multi',
+    options: [
+      { id: 'htn', label: { en: 'High Blood Pressure', hi: 'हाई ब्लड प्रेशर' }, value: 'Hypertension' },
+      { id: 'dm', label: { en: 'Diabetes', hi: 'डायबिटीज / मधुमेह' }, value: 'Diabetes Mellitus' },
+      { id: 'cad', label: { en: 'Previous Heart Attack / Angina', hi: 'पहले हार्ट अटैक / एंजाइना' }, value: 'Prior CAD', isRedFlag: true },
+      { id: 'cholesterol', label: { en: 'High Cholesterol', hi: 'हाई कोलेस्ट्रॉल' }, value: 'Hyperlipidemia' },
+      { id: 'smoking', label: { en: 'Current / Past Smoker', hi: 'धूम्रपान करते हैं / पहले करते थे' }, value: 'Smoking' },
+      { id: 'family', label: { en: 'Family history of heart disease', hi: 'परिवार में दिल की बीमारी' }, value: 'Family history CAD' },
+      { id: 'none', label: { en: 'None of the above', hi: 'इनमें से कोई नहीं' }, value: 'No significant history', exclusive: true },
+    ],
+    followUp: null,
+  },
+]
+
+export const diseasePrescriptions = {
+  back_pain: {
+    id: 'doc_rx_back_pain',
+    name: 'Prescription_DrKapoor_SpineOrtho.pdf',
+    type: 'Prescription',
+    condition: 'back_pain',
+    extractedData: {
+      medications: [
+        { name: 'Zerodol-P (Aceclofenac 100mg + Paracetamol 325mg)', dose: '1 tab', frequency: 'Twice daily (After food)', duration: '5 days', route: 'Oral' },
+        { name: 'Thiocolchicoside (Myoril Muscle Relaxant)', dose: '4mg', frequency: 'Twice daily (After food)', duration: '5 days', route: 'Oral' },
+        { name: 'Pantoprazole (Pan-40)', dose: '40mg', frequency: 'Once daily (Before breakfast)', duration: '7 days', route: 'Oral' },
+        { name: 'Pregabalin (Pregalin for Radicular Nerve Pain)', dose: '75mg', frequency: 'Once daily (Bedtime)', duration: '14 days', route: 'Oral' },
+      ],
+      doctor: 'Dr. Rajesh Kapoor, MS (Orthopaedics), Spine Specialist',
+      hospital: 'District Orthopedic & Spine Care Center',
+      date: '2024-01-16',
+      diagnosis: 'Acute Lumbo-sacral Muscular Strain & Disc Spasm (L4-L5)',
+    },
+  },
+  fever: {
+    id: 'doc_rx_fever',
+    name: 'Prescription_DrSunita_GeneralMedicine.pdf',
+    type: 'Prescription',
+    condition: 'fever',
+    extractedData: {
+      medications: [
+        { name: 'Dolo 650 (Paracetamol)', dose: '650mg', frequency: 'Thrice daily / SOS if temp > 100°F', duration: '4 days', route: 'Oral' },
+        { name: 'Azithromycin (Azithral)', dose: '500mg', frequency: 'Once daily (After meals)', duration: '3 days', route: 'Oral' },
+        { name: 'Electral ORS Sachet', dose: '1 sachet', frequency: 'In 1 Litre water, sip throughout day', duration: '3 days', route: 'Oral' },
+        { name: 'Limcee (Vitamin C + Zinc)', dose: '500mg', frequency: 'Once daily (Chewable)', duration: '10 days', route: 'Oral' },
+      ],
+      doctor: 'Dr. Sunita Deshmukh, MD (Internal Medicine)',
+      hospital: 'District Civil Hospital & Medical College',
+      date: '2024-01-18',
+      diagnosis: 'Acute Viral Pyrexia with Body Ache & Dehydration',
+    },
+  },
+  cough: {
+    id: 'doc_rx_cough',
+    name: 'Prescription_DrSrivastava_Pulmonology.pdf',
+    type: 'Prescription',
+    condition: 'cough',
+    extractedData: {
+      medications: [
+        { name: 'Augmentin (Amoxicillin + Clavulanate)', dose: '625mg', frequency: 'Twice daily (After meals)', duration: '5 days', route: 'Oral' },
+        { name: 'Ascoril-D Cough Syrup (Dextromethorphan + CPM)', dose: '10ml', frequency: 'Thrice daily (After food)', duration: '5 days', route: 'Oral' },
+        { name: 'Montair-LC (Montelukast + Levocetirizine)', dose: '1 tab', frequency: 'Once daily (Bedtime)', duration: '7 days', route: 'Oral' },
+        { name: 'Steam Inhalation with Karvol Plus', dose: '1 cap', frequency: 'Twice daily inhalation', duration: '5 days', route: 'Inhalation' },
+      ],
+      doctor: 'Dr. Alok Srivastava, DNB (Respiratory Medicine)',
+      hospital: 'City Care Multispeciality & Trauma Center',
+      date: '2024-01-14',
+      diagnosis: 'Acute Bronchitis with Spasmodic Dry & Productive Cough',
+    },
+  },
+  headache: {
+    id: 'doc_rx_headache',
+    name: 'Prescription_DrRamanathan_Neurology.pdf',
+    type: 'Prescription',
+    condition: 'headache',
+    extractedData: {
+      medications: [
+        { name: 'Naproxen 500mg + Domperidone 10mg (Napra-D)', dose: '1 tab', frequency: 'SOS at headache onset', duration: 'As needed', route: 'Oral' },
+        { name: 'Propranolol Extended Release (Ciplar-LA)', dose: '40mg', frequency: 'Once daily (Morning)', duration: '30 days', route: 'Oral' },
+        { name: 'Flunarizine (Sibelium)', dose: '5mg', frequency: 'Once daily (Bedtime)', duration: '30 days', route: 'Oral' },
+        { name: 'Magnesium Glycinate', dose: '250mg', frequency: 'Once daily (Night)', duration: '30 days', route: 'Oral' },
+      ],
+      doctor: 'Dr. K.V. Ramanathan, MD, DM (Neurology)',
+      hospital: 'Apex Neuro & Spine Institute',
+      date: '2024-01-11',
+      diagnosis: 'Migraine without Aura, Tension-Type Cephalea',
+    },
+  },
+  abdominal_pain: {
+    id: 'doc_rx_abdominal_pain',
+    name: 'Prescription_DrBansal_Gastroenterology.pdf',
+    type: 'Prescription',
+    condition: 'abdominal_pain',
+    extractedData: {
+      medications: [
+        { name: 'Razo-L (Rabeprazole 20mg + Levosulpiride 75mg)', dose: '1 cap', frequency: 'Once daily (30 mins before breakfast)', duration: '14 days', route: 'Oral' },
+        { name: 'Drotin-DS (Drotaverine Antispasmodic)', dose: '80mg', frequency: 'Twice daily / SOS for crampy pain', duration: '3 days', route: 'Oral' },
+        { name: 'Sucrafil Suspension (Sucralfate + Oxetacaine)', dose: '10ml', frequency: 'Thrice daily (1 hour before food)', duration: '7 days', route: 'Oral' },
+        { name: 'Econorm Probiotic Sachet', dose: '1 sachet', frequency: 'Twice daily in lukewarm water', duration: '5 days', route: 'Oral' },
+      ],
+      doctor: 'Dr. Pradeep Bansal, MD, DM (Gastroenterology)',
+      hospital: 'Apex Digestive Diseases & Surgical Center',
+      date: '2024-01-12',
+      diagnosis: 'Acute Acid Peptic Disease, Dyspeptic Gastritis',
+    },
+  },
+  breathing: {
+    id: 'doc_rx_breathing',
+    name: 'Prescription_DrMalhotra_Pulmonary.pdf',
+    type: 'Prescription',
+    condition: 'breathing',
+    extractedData: {
+      medications: [
+        { name: 'Foracort 200 Inhaler (Budesonide + Formoterol)', dose: '2 puffs', frequency: 'Twice daily with spacer', duration: '30 days', route: 'Inhalation' },
+        { name: 'Asthalin Inhaler (Salbutamol 100mcg)', dose: '2 puffs', frequency: 'SOS for acute shortness of breath', duration: 'As needed', route: 'Inhalation' },
+        { name: 'Monticope (Levocetirizine + Montelukast)', dose: '1 tab', frequency: 'Once daily (Bedtime)', duration: '14 days', route: 'Oral' },
+        { name: 'Deriphyllin Retard', dose: '150mg', frequency: 'Twice daily (After food)', duration: '7 days', route: 'Oral' },
+      ],
+      doctor: 'Dr. Vivek Malhotra, MD (Pulmonary Medicine)',
+      hospital: 'City Care Chest & Allergy Clinic',
+      date: '2024-01-13',
+      diagnosis: 'Bronchial Asthma with Acute Bronchospasm & Wheeze',
+    },
+  },
+  joint_pain: {
+    id: 'doc_rx_joint_pain',
+    name: 'Prescription_DrSen_Rheumatology.pdf',
+    type: 'Prescription',
+    condition: 'joint_pain',
+    extractedData: {
+      medications: [
+        { name: 'Nucoxia (Etoricoxib 90mg)', dose: '1 tab', frequency: 'Once daily (After food)', duration: '7 days', route: 'Oral' },
+        { name: 'Cartigen Forte (Glucosamine + Chondroitin)', dose: '1 tab', frequency: 'Twice daily (After meals)', duration: '30 days', route: 'Oral' },
+        { name: 'Calcirol Sachet (Cholecalciferol 60000 IU)', dose: '1 sachet', frequency: 'Once weekly in milk', duration: '8 weeks', route: 'Oral' },
+        { name: 'Volini Pain Relief Gel (Diclofenac)', dose: 'Topical', frequency: 'Apply gently over painful joints TDS', duration: '15 days', route: 'Topical' },
+      ],
+      doctor: 'Dr. Ananya Sen, MD (Rheumatology & Bone Care)',
+      hospital: 'District Civil Hospital Arthrology OPD',
+      date: '2024-01-15',
+      diagnosis: 'Osteoarthritis Bilateral Knees, Inflammatory Arthralgia',
+    },
+  },
+  diabetes: {
+    id: 'doc_rx_diabetes',
+    name: 'Prescription_DrAggarwal_Diabetology.pdf',
+    type: 'Prescription',
+    condition: 'diabetes',
+    extractedData: {
+      medications: [
+        { name: 'Glycomet-SR (Metformin Extended Release)', dose: '500mg', frequency: 'Twice daily (After meals)', duration: '30 days', route: 'Oral' },
+        { name: 'Amaryl (Glimepiride 1mg)', dose: '1 tab', frequency: 'Once daily (Morning before breakfast)', duration: '30 days', route: 'Oral' },
+        { name: 'Galvus (Vildagliptin 50mg)', dose: '1 tab', frequency: 'Twice daily (After meals)', duration: '30 days', route: 'Oral' },
+        { name: 'Neurobion Forte (B-Complex + Methylcobalamin)', dose: '1 tab', frequency: 'Once daily (After lunch)', duration: '30 days', route: 'Oral' },
+      ],
+      doctor: 'Dr. Neha Aggarwal, MD, DM (Endocrinology & Diabetes)',
+      hospital: 'City Care Diabetes & Metabolic Center',
+      date: '2024-01-10',
+      diagnosis: 'Type 2 Diabetes Mellitus with High Glycated Hb (HbA1c 7.9%)',
+    },
+  },
+  dizziness: {
+    id: 'doc_rx_dizziness',
+    name: 'Prescription_DrSaxena_ENT_Vertigo.pdf',
+    type: 'Prescription',
+    condition: 'dizziness',
+    extractedData: {
+      medications: [
+        { name: 'Vertin (Betahistine 16mg)', dose: '1 tab', frequency: 'Thrice daily (After meals)', duration: '10 days', route: 'Oral' },
+        { name: 'Stugeron (Cinnarizine 25mg)', dose: '1 tab', frequency: 'Once daily (Bedtime)', duration: '7 days', route: 'Oral' },
+        { name: 'Emeset (Ondansetron 4mg)', dose: '1 tab', frequency: 'SOS if nausea or active vomiting', duration: 'As needed', route: 'Oral' },
+        { name: 'Ginkocer (Ginkgo Biloba 120mg)', dose: '1 tab', frequency: 'Once daily (Morning)', duration: '20 days', route: 'Oral' },
+      ],
+      doctor: 'Dr. Mohit Saxena, MS (ENT), Vertigo & Balance Specialist',
+      hospital: 'Apex ENT & Audiology Institute',
+      date: '2024-01-17',
+      diagnosis: 'Benign Paroxysmal Positional Vertigo (BPPV) & Vestibular Dysregulation',
+    },
+  },
+  skin_rash: {
+    id: 'doc_rx_skin_rash',
+    name: 'Prescription_DrMukherjee_Dermatology.pdf',
+    type: 'Prescription',
+    condition: 'skin_rash',
+    extractedData: {
+      medications: [
+        { name: 'Allegra (Fexofenadine 180mg)', dose: '1 tab', frequency: 'Once daily (Morning)', duration: '10 days', route: 'Oral' },
+        { name: 'Atarax (Hydroxyzine 25mg)', dose: '1 tab', frequency: 'Once daily (Bedtime for itching)', duration: '7 days', route: 'Oral' },
+        { name: 'Momate Cream (Mometasone Furoate 0.1%)', dose: 'Topical', frequency: 'Apply thin film over rash twice daily', duration: '7 days', route: 'Topical' },
+        { name: 'Calamine + Aloe Vera Soothing Lotion', dose: 'Topical', frequency: 'Apply liberally 3 times daily', duration: '10 days', route: 'Topical' },
+      ],
+      doctor: 'Dr. Pallavi Mukherjee, MD (Dermatology)',
+      hospital: 'District Skin & Allergy Health Center',
+      date: '2024-01-16',
+      diagnosis: 'Acute Allergic Contact Dermatitis & Pruritic Urticaria',
+    },
+  },
+  eye_problems: {
+    id: 'doc_rx_eye_problems',
+    name: 'Prescription_DrBhardwaj_Ophthalmology.pdf',
+    type: 'Prescription',
+    condition: 'eye_problems',
+    extractedData: {
+      medications: [
+        { name: 'Moxicip Eye Drops (Moxifloxacin 0.5%)', dose: '1 drop', frequency: '4 times daily in affected eye', duration: '7 days', route: 'Ophthalmic' },
+        { name: 'Refresh Tears (Carboxymethylcellulose 0.5%)', dose: '1 drop', frequency: '4 times daily for ocular lubrication', duration: '30 days', route: 'Ophthalmic' },
+        { name: 'Nevanac Eye Drops (Nepafenac 0.1%)', dose: '1 drop', frequency: 'Thrice daily for pain and redness', duration: '5 days', route: 'Ophthalmic' },
+        { name: 'Warm Saline Compress', dose: 'Clean pad', frequency: 'Twice daily for 10 minutes', duration: '5 days', route: 'External' },
+      ],
+      doctor: 'Dr. Sanjay Bhardwaj, MS (Ophthalmology)',
+      hospital: 'Apex Eye Care & Cornea Institute',
+      date: '2024-01-14',
+      diagnosis: 'Acute Bacterial Conjunctivitis & Bilateral Dry Eye Syndrome',
+    },
+  },
+  urinary: {
+    id: 'doc_rx_urinary',
+    name: 'Prescription_DrMishra_Urology.pdf',
+    type: 'Prescription',
+    condition: 'urinary',
+    extractedData: {
+      medications: [
+        { name: 'Nitrofurantoin Sustained Release (Martifur-SR)', dose: '100mg', frequency: 'Twice daily (After food)', duration: '7 days', route: 'Oral' },
+        { name: 'Alkasol Syrup (Disodium Hydrogen Citrate)', dose: '2 tsp', frequency: 'In 1 glass water thrice daily', duration: '5 days', route: 'Oral' },
+        { name: 'Urispas (Flavoxate 200mg)', dose: '1 tab', frequency: 'Thrice daily for bladder spasm and burning', duration: '4 days', route: 'Oral' },
+        { name: 'Cranfit Sachet (Cranberry + D-Mannose)', dose: '1 sachet', frequency: 'Once daily in water', duration: '10 days', route: 'Oral' },
+      ],
+      doctor: 'Dr. Tarun Mishra, MCh (Urology)',
+      hospital: 'City Care Renal & Urology Center',
+      date: '2024-01-18',
+      diagnosis: 'Acute Uncomplicated Urinary Tract Infection (UTI) & Dysuria',
+    },
+  },
+  mental_health: {
+    id: 'doc_rx_mental_health',
+    name: 'Prescription_DrNayar_Psychiatry.pdf',
+    type: 'Prescription',
+    condition: 'mental_health',
+    extractedData: {
+      medications: [
+        { name: 'Nexito (Escitalopram 10mg)', dose: '1 tab', frequency: 'Once daily (Morning after breakfast)', duration: '30 days', route: 'Oral' },
+        { name: 'Clonafit (Clonazepam 0.25mg)', dose: '1 tab', frequency: 'Once daily (Bedtime / SOS for panic)', duration: '7 days', route: 'Oral' },
+        { name: 'Ciplar (Propranolol 20mg)', dose: '1 tab', frequency: 'Once daily (Morning for palpitations)', duration: '14 days', route: 'Oral' },
+        { name: 'Melatonin Tablet (Meloset 3mg)', dose: '1 tab', frequency: '30 mins before sleep for insomnia', duration: '10 days', route: 'Oral' },
+      ],
+      doctor: 'Dr. Devika Nayar, MD (Psychiatry), DPM',
+      hospital: 'District Mental Health & Behavioral Sciences Center',
+      date: '2024-01-12',
+      diagnosis: 'Acute Stress-Induced Anxiety Reaction with Palpitations & Insomnia',
+    },
+  },
+  fatigue: {
+    id: 'doc_rx_fatigue',
+    name: 'Prescription_DrChoudhury_InternalMedicine.pdf',
+    type: 'Prescription',
+    condition: 'fatigue',
+    extractedData: {
+      medications: [
+        { name: 'Orofer-XT (Ferrous Ascorbate + Folic Acid)', dose: '1 tab', frequency: 'Once daily (After lunch)', duration: '30 days', route: 'Oral' },
+        { name: 'Neurobion D (B-Complex + High Dose B12)', dose: '1 tab', frequency: 'Once daily (Morning)', duration: '30 days', route: 'Oral' },
+        { name: 'Calcirol (Cholecalciferol Vitamin D3 60000 IU)', dose: '1 cap', frequency: 'Once weekly with warm milk', duration: '8 weeks', route: 'Oral' },
+        { name: 'CoQ10 + L-Carnitine (Ubiquinol 100mg)', dose: '1 tab', frequency: 'Once daily (Morning for cellular energy)', duration: '30 days', route: 'Oral' },
+      ],
+      doctor: 'Dr. R.C. Choudhury, MD (Internal Medicine)',
+      hospital: 'Apex Multi-Speciality Clinic',
+      date: '2024-01-17',
+      diagnosis: 'Chronic Generalized Fatigue, Nutritional Microcytic Anemia',
+    },
+  },
+  chest_pain: {
+    id: 'doc_rx_chest_pain',
+    name: 'Prescription_DrSharma_Cardiology.pdf',
+    type: 'Prescription',
+    condition: 'chest_pain',
+    extractedData: {
+      medications: [
+        { name: 'Amlodipine (Amlong)', dose: '5mg', frequency: 'Once daily (Morning)', duration: '30 days', route: 'Oral' },
+        { name: 'Atorvastatin (Atorva)', dose: '10mg', frequency: 'Once daily (Bedtime)', duration: '30 days', route: 'Oral' },
+        { name: 'Aspirin (Ecosprin)', dose: '75mg', frequency: 'Once daily (After lunch)', duration: 'Lifelong', route: 'Oral' },
+        { name: 'Pantoprazole (Pan-40)', dose: '40mg', frequency: 'Once daily (Before breakfast)', duration: '15 days', route: 'Oral' },
+      ],
+      doctor: 'Dr. R.K. Sharma, MD, DM (Cardiology)',
+      hospital: 'Apex Heart & Multispeciality Hospital',
+      date: '2024-01-15',
+      diagnosis: 'Hypertension Stage II, Mild Hypercholesterolemia, Anginal Equivalence',
+    },
+  },
+}
+
+/**
+ * Returns the exact tailored prescription document for the user's selected condition
+ */
+export function getPrescriptionForCondition(conditionId) {
+  return diseasePrescriptions[conditionId] || diseasePrescriptions.chest_pain
+}
+
+/**
+ * Returns mock scanned documents with the prescription dynamically customized to the selected condition
+ */
+export function getMockScannedDocuments(conditionId) {
+  const rxDoc = getPrescriptionForCondition(conditionId)
+  return [
+    rxDoc,
+    mockScannedDocuments[1], // Lab Report
+    mockScannedDocuments[2], // Medical History
+    mockScannedDocuments[3], // ECG
+  ]
+}
+
+export const mockScannedDocuments = [
+  diseasePrescriptions.chest_pain,
+  {
+    id: 'doc2',
+    name: 'LabReport_CBC_Lipid_HbA1c.pdf',
+    type: 'Lab Report',
+    extractedData: {
+      tests: [
+        { name: 'Hemoglobin', value: '13.2', unit: 'g/dL', ref: '13.0-17.0', status: 'normal' },
+        { name: 'Fasting Blood Sugar (FBS)', value: '142', unit: 'mg/dL', ref: '70-100', status: 'high' },
+        { name: 'Post-Prandial Sugar (PPBS)', value: '198', unit: 'mg/dL', ref: '<140', status: 'high' },
+        { name: 'HbA1c (Glycated Hb)', value: '7.4', unit: '%', ref: '<5.7', status: 'high' },
+        { name: 'Total Cholesterol', value: '228', unit: 'mg/dL', ref: '<200', status: 'high' },
+        { name: 'LDL Cholesterol', value: '148', unit: 'mg/dL', ref: '<100', status: 'high' },
+        { name: 'HDL Cholesterol', value: '38', unit: 'mg/dL', ref: '>40', status: 'low' },
+        { name: 'Serum Creatinine', value: '1.05', unit: 'mg/dL', ref: '0.7-1.3', status: 'normal' },
+        { name: 'Blood Urea', value: '28', unit: 'mg/dL', ref: '15-45', status: 'normal' },
+      ],
+      lab: 'Dr. Lal PathLabs / District Hospital Diagnostic Wing',
+      date: '2024-01-10',
+    },
+  },
+  {
+    id: 'doc_history',
+    name: 'DischargeSummary_PastMedicalHistory.pdf',
+    type: 'Medical History',
+    extractedData: {
+      chronicConditions: [
+        { condition: 'Type 2 Diabetes Mellitus', diagnosedYear: '2014', status: 'Managed with Metformin 500mg BD' },
+        { condition: 'Primary Essential Hypertension', diagnosedYear: '2019', status: 'Controlled on Amlodipine 5mg' },
+        { condition: 'Dyslipidemia', diagnosedYear: '2021', status: 'Under active statin therapy' },
+      ],
+      surgeries: [
+        { procedure: 'Laparoscopic Cholecystectomy (Gallbladder removal)', year: '2019', hospital: 'District Civil Hospital' },
+        { procedure: 'Appendectomy', year: '2011', hospital: 'Sub-district Health Centre' },
+      ],
+      allergies: [
+        { allergen: 'Penicillin / Amoxicillin', reaction: 'Severe Urticaria, Facial swelling', severity: 'High' },
+        { allergen: 'Sulfa Drugs', reaction: 'Mild Gastric Upset & Rash', severity: 'Moderate' },
+      ],
+      familyHistory: [
+        'Father: Myocardial Infarction at age 56, CAD',
+        'Mother: Type 2 Diabetes Mellitus with chronic neuropathy',
+      ],
+      hospital: 'Govt. Medical College & Civil Hospital',
+      date: '2023-11-20',
+      clinicalNotes: '10-year diabetic history. Well-tolerated past procedures. Strict caution: Avoid beta-lactam / penicillin antibiotics.',
+    },
+  },
+  {
+    id: 'doc3',
+    name: 'ECG_12Lead_Cardiac_Report.pdf',
+    type: 'ECG',
+    extractedData: {
+      findings: [
+        'Normal Sinus rhythm, heart rate 78 bpm',
+        'PR interval: 156 ms (Normal)',
+        'QRS duration: 88 ms (Normal)',
+        'Mild non-specific ST-T wave flattening in leads V4-V6',
+        'No pathological Q waves or acute ST elevation',
+      ],
+      interpretation: 'Borderline 12-lead ECG. Non-specific lateral ST-T changes. Correlate with clinical chest pain symptoms.',
+      doctor: 'Dr. A. Patel, MD (Internal Medicine)',
+      date: '2024-01-12',
+    },
+  },
+]
+
+export const nearbyHospitals = [
+  {
+    id: 'hosp_apex',
+    name: {
+      en: 'Apex Super-Speciality Hospital & Heart Institute',
+      hi: 'अपेक्स सुपर-स्पेशियलिटी अस्पताल एवं हृदय संस्थान',
+    },
+    distance: '1.4 km',
+    travelTime: '5 mins away',
+    rating: 4.9,
+    reviewsCount: 1420,
+    address: {
+      en: 'Plot 12, Civil Hospital Road, Sector 4',
+      hi: 'प्लॉट 12, सिविल अस्पताल रोड, सेक्टर 4',
+    },
+    doctor: {
+      en: 'Dr. R.K. Sharma, MD, DM (Senior Specialist Physician)',
+      hi: 'डॉ. आर.के. शर्मा, एमडी, डीएम (वरिष्ठ विशेषज्ञ चिकित्सक)',
+    },
+    department: {
+      en: 'Cardiology & Internal Medicine OPD',
+      hi: 'हृदय रोग एवं सामान्य चिकित्सा ओपीडी',
+    },
+    opdRoom: 'Room 104, First Floor',
+    slots: ['Today 11:30 AM', 'Today 01:15 PM', 'Today 03:45 PM', 'Tomorrow 10:00 AM'],
+    fees: '₹0 (ABDM / Ayushman PM-JAY Covered) / ₹300 General',
+    badges: ['ABDM Verified', 'Ayushman Bharat Cashless', '24x7 Emergency ICU'],
+    phone: '+91 11-4567-8900',
+  },
+  {
+    id: 'hosp_district',
+    name: {
+      en: 'District Civil Hospital & Medical College',
+      hi: 'जिला सिविल अस्पताल एवं मेडिकल कॉलेज',
+    },
+    distance: '2.1 km',
+    travelTime: '8 mins away',
+    rating: 4.7,
+    reviewsCount: 3100,
+    address: {
+      en: 'Station Road, Near Collectorate Gate',
+      hi: 'स्टेशन रोड, कलेक्ट्रेट गेट के पास',
+    },
+    doctor: {
+      en: 'Dr. Sunita Deshmukh, MD (Consultant Physician)',
+      hi: 'डॉ. सुनीता देशमुख, एमडी (परामर्शदाता चिकित्सक)',
+    },
+    department: {
+      en: 'General Medicine & Emergency Care',
+      hi: 'सामान्य चिकित्सा एवं आपातकालीन देखभाल',
+    },
+    opdRoom: 'OPD Counter 6, Ground Floor',
+    slots: ['Today 11:00 AM', 'Today 12:30 PM', 'Today 02:00 PM', 'Tomorrow 09:30 AM'],
+    fees: 'Free (Govt. Public Health Service)',
+    badges: ['Govt. Health Center', 'Free Medicines & Tests', 'Free OPD'],
+    phone: '+91 11-2345-6789',
+  },
+  {
+    id: 'hosp_fortis',
+    name: {
+      en: 'City Care Multispeciality & Trauma Center',
+      hi: 'सिटी केयर मल्टीस्पेशियलिटी एवं ट्रॉमा सेंटर',
+    },
+    distance: '3.8 km',
+    travelTime: '12 mins away',
+    rating: 4.8,
+    reviewsCount: 980,
+    address: {
+      en: 'Ring Road, Near City Center Flyover',
+      hi: 'रिंग रोड, सिटी सेंटर फ्लाईओवर के पास',
+    },
+    doctor: {
+      en: 'Dr. Vivek Malhotra, MD, DNB (Specialist Physician)',
+      hi: 'डॉ. विवेक मल्होत्रा, एमडी, डीएनबी (विशेषज्ञ चिकित्सक)',
+    },
+    department: {
+      en: 'Comprehensive Clinical Consultation OPD',
+      hi: 'समग्र क्लिनिकल परामर्श ओपीडी',
+    },
+    opdRoom: 'OPD Suite 3, Second Floor',
+    slots: ['Today 12:00 PM', 'Today 04:30 PM', 'Tomorrow 11:00 AM'],
+    fees: '₹400 / Insurance Empanelled',
+    badges: ['NABH Accredited', 'Express Queue', 'Cashless TPA'],
+    phone: '+91 11-8901-2345',
+  },
+]
+
+export const translations = {
+  en: {
+    appName: 'MediKiosk',
+    tagline: 'AI-Powered Clinical History Kiosk',
+    languageLabel: 'Select Language',
+    enterId: 'Enter ABHA ID / Aadhaar / Phone',
+    idPlaceholder: 'e.g., 12-3456-7890-1234',
+    consentText: 'I consent to share my health data under ABDM guidelines for this consultation.',
+    startBtn: 'Start Assessment',
+    listenInstructions: 'Listen to Instructions',
+    backBtn: 'Back',
+    nextBtn: 'Next',
+    skipBtn: 'Skip',
+    questionPrefix: 'Question',
+    ofText: 'of',
+    listening: 'Listening...',
+    tapOrSpeak: 'Tap an option or press the microphone to speak',
+    processing: 'Processing...',
+    redFlagAlert: '⚠ EMERGENCY TRIAGE ALERT: Multiple red flags detected. Priority consultation required.',
+    
+    // Document scanning & uploads
+    scanTitle: 'Upload Medical Documents',
+    scanSubtitle: 'Upload your prescriptions, lab reports, and medical history for instant AI extraction',
+    dropZoneText: 'Drag & drop or tap to upload medical files',
+    supportedFormats: 'Supports PDF, JPG, PNG up to 10MB each',
+    chooseFilesBtn: 'Browse Files',
+    cameraCaptureBtn: 'Take Photo with Camera',
+    samplePresetsTitle: 'Quick Demo: Load realistic sample documents',
+    samplePrescriptionBtn: '+ Prescription',
+    sampleLabBtn: '+ Lab Report',
+    sampleHistoryBtn: '+ Medical History',
+    sampleEcgBtn: '+ ECG Report',
+    categoryAll: 'All Documents',
+    categoryPrescription: 'Prescriptions',
+    categoryLab: 'Lab Reports',
+    categoryHistory: 'Medical History',
+    categoryEcg: 'ECG / Imaging',
+    selectCategoryLabel: 'Document Category',
+    autoDetect: 'Auto-detect Category',
+    scanProcessing: 'AI is reading document & extracting clinical entities...',
+    scanComplete: 'Medical documents digitized successfully',
+    skipUploadNotice: 'No documents with you today? You can proceed straight to consultation.',
+    skipToConsultBtn: 'Skip Documents → Continue',
+    startScanningBtn: 'Analyze & Digitize Documents',
+    generateSummary: 'Proceed to AI Prescription & Consultation',
+    reuploadOrAdd: 'Upload More Documents',
+    
+    // Extraction card details
+    doctorBadge: 'Prescribed by',
+    hospitalBadge: 'Facility / Lab',
+    dateBadge: 'Date',
+    medications: 'Medications',
+    labValues: 'Lab Test Results',
+    chronicConditions: 'Chronic Conditions & Illnesses',
+    pastSurgeries: 'Past Surgeries & Procedures',
+    allergies: 'Known Allergies',
+    familyHistory: 'Family Medical History',
+    clinicalFindings: 'Clinical Findings',
+    doctorNotes: 'Doctor Notes / Interpretation',
+    
+    // Consultation Screen
+    physicianTitle: 'Physician Consultation Dashboard',
+    patientInfo: 'Patient Information',
+    redFlags: 'Red Flags',
+    clinicalHistory: 'Structured Clinical History',
+    digitizedData: 'Digitized Medical Records',
+    chiefComplaint: 'Chief Complaint',
+    hpi: 'History of Present Illness',
+    pastHistory: 'Past Medical History',
+    diagnoses: 'Diagnoses',
+    printSummary: 'Print Summary',
+    nextPatient: 'Next Patient',
+    resetConfirm: 'Start new patient assessment? All session data will be cleared.',
+    severityScale: 'Pain Severity Scale',
+    noRedFlags: 'No red flags detected',
+    consentRequired: 'Please provide consent to continue',
+    idRequired: 'Please enter your ID',
+    micPermission: 'Microphone permission required',
+    browserUnsupported: 'Your browser does not support voice features. Please use touch input.',
+    step1Label: 'Identify',
+    step2Label: 'Symptom',
+    step3Label: 'Questions',
+    step4Label: 'Documents',
+    step5Label: 'Prescription & Advice',
+  },
+  hi: {
+    appName: 'मेडीकियोस्क',
+    tagline: 'AI-संचालित क्लिनिकल हिस्ट्री कियोस्क',
+    languageLabel: 'भाषा चुनें',
+    enterId: 'ABHA ID / आधार / फोन नंबर दर्ज करें',
+    idPlaceholder: 'उदाहरण: 12-3456-7890-1234',
+    consentText: 'मैं ABDM दिशानिर्देशों के तहत इस परामर्श के लिए अपना स्वास्थ्य डेटा साझा करने की सहमति देता/देती हूँ।',
+    startBtn: 'आकलन शुरू करें',
+    listenInstructions: 'निर्देश सुनें',
+    backBtn: 'वापस',
+    nextBtn: 'आगे',
+    skipBtn: 'छोड़ें',
+    questionPrefix: 'प्रश्न',
+    ofText: 'का',
+    listening: 'सुन रहा है...',
+    tapOrSpeak: 'विकल्प चुनें या बोलने के लिए माइक्रोफोन दबाएं',
+    processing: 'प्रसंस्करण चल रहा है...',
+    redFlagAlert: '⚠ आपातकालीन ट्राइएज अलर्ट: कई रेड फ्लैग मिले। प्राथमिकता परामर्श आवश्यक।',
+    
+    // Document scanning & uploads
+    scanTitle: 'चिकित्सा दस्तावेज़ अपलोड करें',
+    scanSubtitle: 'त्वरित AI निष्कर्षण के लिए अपने पर्चे, लैब रिपोर्ट और पुराना मेडिकल इतिहास अपलोड करें',
+    dropZoneText: 'दस्तावेज़ अपलोड करने के लिए फ़ाइलें यहाँ खींचें या टैप करें',
+    supportedFormats: 'PDF, JPG, PNG समर्थित (प्रत्येक 10MB तक)',
+    chooseFilesBtn: 'फ़ाइलें चुनें',
+    cameraCaptureBtn: 'कैमरे से फोटो लें',
+    samplePresetsTitle: 'डेमो के लिए तैयार दस्तावेज़ जोड़ें:',
+    samplePrescriptionBtn: '+ डॉक्टर का पर्चा',
+    sampleLabBtn: '+ लैब रिपोर्ट',
+    sampleHistoryBtn: '+ मेडिकल इतिहास',
+    sampleEcgBtn: '+ ECG रिपोर्ट',
+    categoryAll: 'सभी दस्तावेज़',
+    categoryPrescription: 'पर्चे (Prescriptions)',
+    categoryLab: 'लैब रिपोर्ट (Lab Reports)',
+    categoryHistory: 'मेडिकल इतिहास (History)',
+    categoryEcg: 'ECG / इमेजिंग',
+    selectCategoryLabel: 'दस्तावेज़ की श्रेणी',
+    autoDetect: 'स्वतः पहचान (Auto-detect)',
+    scanProcessing: 'AI दस्तावेज़ पढ़ रहा है और क्लिनिकल डेटा निकाल रहा है...',
+    scanComplete: 'चिकित्सा दस्तावेज़ सफलतापूर्वक डिजिटल हो गए',
+    skipUploadNotice: 'क्या आज आपके पास कोई दस्तावेज़ नहीं हैं? आप सीधे परामर्श पर जा सकते हैं।',
+    skipToConsultBtn: 'दस्तावेज़ छोड़ें → आगे बढ़ें',
+    startScanningBtn: 'दस्तावेज़ स्कैन व डिजिटल करें',
+    generateSummary: 'AI परामर्श व प्रिस्क्रिप्शन देखें',
+    reuploadOrAdd: 'और दस्तावेज़ अपलोड करें',
+    
+    // Extraction card details
+    doctorBadge: 'डॉक्टर',
+    hospitalBadge: 'अस्पताल / लैब',
+    dateBadge: 'दिनांक',
+    medications: 'दवाएं',
+    labValues: 'लैब परीक्षण परिणाम',
+    chronicConditions: 'पुरानी बीमारियां (Chronic Illnesses)',
+    pastSurgeries: 'पिछली सर्जरी व प्रक्रियाएं',
+    allergies: 'एलर्जी (Allergies)',
+    familyHistory: 'पारिवारिक इतिहास',
+    clinicalFindings: 'क्लिनिकल निष्कर्ष',
+    doctorNotes: 'डॉक्टर की टिप्पणी व निष्कर्ष',
+    
+    // Consultation Screen
+    physicianTitle: 'चिकित्सक परामर्श डैशबोर्ड',
+    patientInfo: 'रोगी जानकारी',
+    redFlags: 'रेड फ्लैग',
+    clinicalHistory: 'संरचित क्लिनिकल इतिहास',
+    digitizedData: 'डिजिटल चिकित्सा रिकॉर्ड',
+    chiefComplaint: 'मुख्य शिकायत',
+    hpi: 'वर्तमान बीमारी का इतिहास',
+    pastHistory: 'पुराना चिकित्सा इतिहास',
+    diagnoses: 'निदान',
+    printSummary: 'सारांश प्रिंट करें',
+    nextPatient: 'अगला रोगी',
+    resetConfirm: 'नया रोगी आकलन शुरू करें? सभी डेटा रीसेट हो जाएगा।',
+    severityScale: 'दर्द गंभीरता पैमाना',
+    noRedFlags: 'कोई रेड फ्लैग नहीं मिला',
+    consentRequired: 'जारी रखने के लिए सहमति दें',
+    idRequired: 'कृपया अपनी ID दर्ज करें',
+    micPermission: 'माइक्रोफोन अनुमति आवश्यक',
+    browserUnsupported: 'आपका ब्राउज़र वॉइस सुविधाओं का समर्थन नहीं करता। कृपया टच इनपुट का उपयोग करें।',
+    step1Label: 'पहचान',
+    step2Label: 'लक्षण',
+    step3Label: 'प्रश्न',
+    step4Label: 'दस्तावेज़',
+    step5Label: 'दवाई व सलाह',
+  },
+}
+
+export function t(key, lang = 'en') {
+  return translations[lang]?.[key] || translations.en[key] || key
+}
