@@ -61,6 +61,267 @@ export const CONDITION_SPECIALTIES = {
       { nameEn: 'Dr. Shweta Kapoor, DNB (Neurology)', nameHi: 'डॉ. श्वेता कपूर, डीएनबी', exp: '10 yrs exp', room: 'Room 305' },
     ],
   },
+  // ── Extended conditions: specialist mapping ──
+  palpitations: {
+    deptEn: 'Cardiology & Cardiac Rhythm Clinic',
+    deptHi: 'हृदय रोग एवं धड़कन क्लिनिक',
+    specialistEn: 'Cardiologist & Electrophysiologist',
+    specialistHi: 'हृदय रोग विशेषज्ञ',
+    doctors: [
+      { nameEn: 'Dr. R.K. Sharma, MD, DM (Cardiology)', nameHi: 'डॉ. आर.के. शर्मा, एमडी, डीएम', exp: '18 yrs exp', room: 'OPD Room 104' },
+      { nameEn: 'Dr. Anita Mehta, MD, DNB (Cardiology)', nameHi: 'डॉ. अनीता मेहता, एमडी, डीएनबी', exp: '14 yrs exp', room: 'Cardio Suite 2' },
+    ],
+  },
+  hypertension: {
+    deptEn: 'Cardiology & Hypertension Clinic',
+    deptHi: 'हृदय रोग एवं बीपी क्लिनिक',
+    specialistEn: 'Cardiologist & Hypertension Specialist',
+    specialistHi: 'हृदय व बीपी विशेषज्ञ',
+    doctors: [
+      { nameEn: 'Dr. R.K. Sharma, MD, DM (Cardiology)', nameHi: 'डॉ. आर.के. शर्मा, एमडी, डीएम', exp: '18 yrs exp', room: 'OPD Room 104' },
+      { nameEn: 'Dr. Sanjay Gupta, MD (Cardio-Thoracic)', nameHi: 'डॉ. संजय गुप्ता, एमडी', exp: '21 yrs exp', room: 'Emergency OPD 1' },
+    ],
+  },
+  asthma: {
+    deptEn: 'Pulmonology & Allergy Clinic',
+    deptHi: 'श्वसन एवं एलर्जी क्लिनिक',
+    specialistEn: 'Chest Physician & Pulmonologist',
+    specialistHi: 'फेफड़ा एवं श्वसन रोग विशेषज्ञ',
+    doctors: [
+      { nameEn: 'Dr. Vivek Malhotra, MD (Pulmonary Medicine)', nameHi: 'डॉ. विवेक मल्होत्रा, एमडी (पल्मोनरी)', exp: '16 yrs exp', room: 'Chest Clinic 1' },
+      { nameEn: 'Dr. Meenakshi Rao, MD, DTCD', nameHi: 'डॉ. मीनाक्षी राव, एमडी', exp: '11 yrs exp', room: 'OPD Room 112' },
+    ],
+  },
+  common_cold: {
+    deptEn: 'General Medicine & ENT OPD',
+    deptHi: 'सामान्य चिकित्सा एवं ENT ओपीडी',
+    specialistEn: 'Consultant Physician',
+    specialistHi: 'परामर्शदाता चिकित्सक',
+    doctors: [
+      { nameEn: 'Dr. Sunita Deshmukh, MD (Internal Medicine)', nameHi: 'डॉ. सुनीता देशमुख, एमडी', exp: '15 yrs exp', room: 'OPD Counter 6' },
+      { nameEn: 'Dr. Alok Srivastava, DNB (Respiratory)', nameHi: 'डॉ. आलोक श्रीवास्तव, डीएनबी', exp: '14 yrs exp', room: 'OPD Suite 4' },
+    ],
+  },
+  vertigo: {
+    deptEn: 'ENT & Balance Disorders Clinic',
+    deptHi: 'ENT एवं संतुलन रोग क्लिनिक',
+    specialistEn: 'ENT Surgeon & Vertigo Specialist',
+    specialistHi: 'ENT विशेषज्ञ',
+    doctors: [
+      { nameEn: 'Dr. Mohit Saxena, MS (ENT), Vertigo Specialist', nameHi: 'डॉ. मोहित सक्सेना, एमएस (ENT)', exp: '13 yrs exp', room: 'ENT Room 2' },
+      { nameEn: 'Dr. Kavita Rao, DLO (ENT)', nameHi: 'डॉ. कविता राव, डीएलओ', exp: '10 yrs exp', room: 'ENT Room 4' },
+    ],
+  },
+  seizure: {
+    deptEn: 'Neurology & Epilepsy Clinic',
+    deptHi: 'न्यूरोलॉजी एवं मिर्गी क्लिनिक',
+    specialistEn: 'Consultant Neurologist & Epileptologist',
+    specialistHi: 'न्यूरोलॉजिस्ट (मिर्गी विशेषज्ञ)',
+    doctors: [
+      { nameEn: 'Dr. K.V. Ramanathan, MD, DM (Neurology)', nameHi: 'डॉ. के.वी. रामनाथन, एमडी, डीएम', exp: '19 yrs exp', room: 'Neuro OPD 2' },
+      { nameEn: 'Dr. Shweta Kapoor, DNB (Neurology)', nameHi: 'डॉ. श्वेता कपूर, डीएनबी', exp: '10 yrs exp', room: 'Room 305' },
+    ],
+  },
+  neck_pain: {
+    deptEn: 'Orthopaedics & Spine Clinic',
+    deptHi: 'हड्डी एवं रीढ़ क्लिनिक',
+    specialistEn: 'Orthopaedic & Spine Surgeon',
+    specialistHi: 'हड्डी व रीढ़ विशेषज्ञ',
+    doctors: [
+      { nameEn: 'Dr. Rajesh Kapoor, MS (Ortho), Spine Specialist', nameHi: 'डॉ. राजेश कपूर, एमएस (ऑर्थो)', exp: '17 yrs exp', room: 'Ortho Room 1' },
+      { nameEn: 'Dr. Ananya Sen, MD (Rheumatology)', nameHi: 'डॉ. अनन्या सेन, एमडी', exp: '12 yrs exp', room: 'OPD Room 207' },
+    ],
+  },
+  muscle_pain: {
+    deptEn: 'Orthopaedics & Sports Medicine',
+    deptHi: 'हड्डी एवं खेल चिकित्सा विभाग',
+    specialistEn: 'Orthopaedic Surgeon',
+    specialistHi: 'हड्डी रोग विशेषज्ञ',
+    doctors: [
+      { nameEn: 'Dr. Rajesh Kapoor, MS (Ortho), Spine Specialist', nameHi: 'डॉ. राजेश कपूर, एमएस (ऑर्थो)', exp: '17 yrs exp', room: 'Ortho Room 1' },
+      { nameEn: 'Dr. Vikram Singh, MS (Ortho)', nameHi: 'डॉ. विक्रम सिंह, एमएस (ऑर्थो)', exp: '11 yrs exp', room: 'Ortho Room 3' },
+    ],
+  },
+  flu: {
+    deptEn: 'Internal Medicine & Infectious Diseases',
+    deptHi: 'सामान्य चिकित्सा एवं संक्रामक रोग विभाग',
+    specialistEn: 'Consultant Physician & Flu Specialist',
+    specialistHi: 'परामर्शदाता चिकित्सक',
+    doctors: [
+      { nameEn: 'Dr. Sunita Deshmukh, MD (Internal Medicine)', nameHi: 'डॉ. सुनीता देशमुख, एमडी', exp: '15 yrs exp', room: 'OPD Counter 6' },
+      { nameEn: 'Dr. R.C. Choudhury, MD (Medicine)', nameHi: 'डॉ. आर.सी. चौधरी, एमडी', exp: '20 yrs exp', room: 'OPD Room 101' },
+    ],
+  },
+  dehydration: {
+    deptEn: 'General Medicine & Emergency Care',
+    deptHi: 'सामान्य चिकित्सा एवं आपातकालीन देखभाल',
+    specialistEn: 'Consultant Physician',
+    specialistHi: 'परामर्शदाता चिकित्सक',
+    doctors: [
+      { nameEn: 'Dr. R.C. Choudhury, MD (Medicine)', nameHi: 'डॉ. आर.सी. चौधरी, एमडी', exp: '20 yrs exp', room: 'OPD Room 101' },
+      { nameEn: 'Dr. Rajesh Verma, MBBS, MD (Medicine)', nameHi: 'डॉ. राजेश वर्मा, एमबीबीएस, एमडी', exp: '12 yrs exp', room: 'OPD Room 208' },
+    ],
+  },
+  diarrhea: {
+    deptEn: 'Gastroenterology & GI Medicine',
+    deptHi: 'पेट एवं पाचन रोग विभाग',
+    specialistEn: 'Consultant Gastroenterologist',
+    specialistHi: 'गैस्ट्रोएंटेरोलॉजिस्ट',
+    doctors: [
+      { nameEn: 'Dr. Pradeep Bansal, MD, DM (Gastro)', nameHi: 'डॉ. प्रदीप बंसल, एमडी, डीएम', exp: '17 yrs exp', room: 'GI Dept Room 3' },
+      { nameEn: 'Dr. Vandana Joshi, MD, DNB', nameHi: 'डॉ. वंदना जोशी, एमडी', exp: '13 yrs exp', room: 'OPD Room 201' },
+    ],
+  },
+  constipation: {
+    deptEn: 'Gastroenterology & GI Medicine',
+    deptHi: 'पेट एवं पाचन रोग विभाग',
+    specialistEn: 'Consultant Gastroenterologist',
+    specialistHi: 'गैस्ट्रोएंटेरोलॉजिस्ट',
+    doctors: [
+      { nameEn: 'Dr. Pradeep Bansal, MD, DM (Gastro)', nameHi: 'डॉ. प्रदीप बंसल, एमडी, डीएम', exp: '17 yrs exp', room: 'GI Dept Room 3' },
+      { nameEn: 'Dr. Vandana Joshi, MD, DNB', nameHi: 'डॉ. वंदना जोशी, एमडी', exp: '13 yrs exp', room: 'OPD Room 201' },
+    ],
+  },
+  vomiting: {
+    deptEn: 'Gastroenterology & Emergency Medicine',
+    deptHi: 'पेट रोग एवं आपातकालीन विभाग',
+    specialistEn: 'Consultant Gastroenterologist',
+    specialistHi: 'गैस्ट्रोएंटेरोलॉजिस्ट',
+    doctors: [
+      { nameEn: 'Dr. Pradeep Bansal, MD, DM (Gastro)', nameHi: 'डॉ. प्रदीप बंसल, एमडी, डीएम', exp: '17 yrs exp', room: 'GI Dept Room 3' },
+      { nameEn: 'Dr. Rajesh Verma, MBBS, MD (Medicine)', nameHi: 'डॉ. राजेश वर्मा, एमबीबीएस, एमडी', exp: '12 yrs exp', room: 'OPD Room 208' },
+    ],
+  },
+  acne: {
+    deptEn: 'Dermatology & Cosmetology',
+    deptHi: 'त्वचा एवं सौंदर्य रोग विभाग',
+    specialistEn: 'Consultant Dermatologist',
+    specialistHi: 'त्वचा रोग विशेषज्ञ',
+    doctors: [
+      { nameEn: 'Dr. Pallavi Mukherjee, MD (Dermatology)', nameHi: 'डॉ. पल्लवी मुखर्जी, एमडी', exp: '13 yrs exp', room: 'Skin OPD 1' },
+      { nameEn: 'Dr. Rohan Khanna, MD, DVL', nameHi: 'डॉ. रोहन खन्ना, एमडी', exp: '9 yrs exp', room: 'Skin OPD 2' },
+    ],
+  },
+  fungal_infection: {
+    deptEn: 'Dermatology & Mycology Clinic',
+    deptHi: 'त्वचा एवं फंगल रोग क्लिनिक',
+    specialistEn: 'Consultant Dermatologist',
+    specialistHi: 'त्वचा रोग विशेषज्ञ',
+    doctors: [
+      { nameEn: 'Dr. Pallavi Mukherjee, MD (Dermatology)', nameHi: 'डॉ. पल्लवी मुखर्जी, एमडी', exp: '13 yrs exp', room: 'Skin OPD 1' },
+      { nameEn: 'Dr. Rohan Khanna, MD, DVL', nameHi: 'डॉ. रोहन खन्ना, एमडी', exp: '9 yrs exp', room: 'Skin OPD 2' },
+    ],
+  },
+  red_eye: {
+    deptEn: 'Ophthalmology & Cornea Clinic',
+    deptHi: 'नेत्र एवं कॉर्निया क्लिनिक',
+    specialistEn: 'Ophthalmic Surgeon',
+    specialistHi: 'नेत्र विशेषज्ञ',
+    doctors: [
+      { nameEn: 'Dr. Sanjay Bhardwaj, MS (Ophthalmology)', nameHi: 'डॉ. संजय भारद्वाज, एमएस', exp: '16 yrs exp', room: 'Eye OPD 1' },
+      { nameEn: 'Dr. Nidhi Agarwal, MS, DNB (Ophthalmology)', nameHi: 'डॉ. निधि अग्रवाल, एमएस', exp: '11 yrs exp', room: 'Eye OPD 2' },
+    ],
+  },
+  vision_problems: {
+    deptEn: 'Ophthalmology & Refraction Clinic',
+    deptHi: 'नेत्र एवं चश्मा जांच क्लिनिक',
+    specialistEn: 'Ophthalmologist & Optometrist',
+    specialistHi: 'नेत्र विशेषज्ञ',
+    doctors: [
+      { nameEn: 'Dr. Sanjay Bhardwaj, MS (Ophthalmology)', nameHi: 'डॉ. संजय भारद्वाज, एमएस', exp: '16 yrs exp', room: 'Eye OPD 1' },
+      { nameEn: 'Dr. Nidhi Agarwal, MS, DNB (Ophthalmology)', nameHi: 'डॉ. निधि अग्रवाल, एमएस', exp: '11 yrs exp', room: 'Eye OPD 2' },
+    ],
+  },
+  ear_pain: {
+    deptEn: 'ENT & Audiology',
+    deptHi: 'ENT एवं श्रवण विभाग',
+    specialistEn: 'ENT Surgeon',
+    specialistHi: 'ENT विशेषज्ञ',
+    doctors: [
+      { nameEn: 'Dr. Mohit Saxena, MS (ENT)', nameHi: 'डॉ. मोहित सक्सेना, एमएस (ENT)', exp: '13 yrs exp', room: 'ENT Room 2' },
+      { nameEn: 'Dr. Kavita Rao, DLO (ENT)', nameHi: 'डॉ. कविता राव, डीएलओ', exp: '10 yrs exp', room: 'ENT Room 4' },
+    ],
+  },
+  sore_throat: {
+    deptEn: 'ENT & Throat Clinic',
+    deptHi: 'ENT एवं गला क्लिनिक',
+    specialistEn: 'ENT Surgeon',
+    specialistHi: 'ENT विशेषज्ञ',
+    doctors: [
+      { nameEn: 'Dr. Mohit Saxena, MS (ENT)', nameHi: 'डॉ. मोहित सक्सेना, एमएस (ENT)', exp: '13 yrs exp', room: 'ENT Room 2' },
+      { nameEn: 'Dr. Alok Srivastava, DNB (Respiratory)', nameHi: 'डॉ. आलोक श्रीवास्तव, डीएनबी', exp: '14 yrs exp', room: 'OPD Suite 4' },
+    ],
+  },
+  thyroid: {
+    deptEn: 'Endocrinology & Metabolic Clinic',
+    deptHi: 'एंडोक्राइन एवं चयापचय क्लिनिक',
+    specialistEn: 'Endocrinologist',
+    specialistHi: 'एंडोक्राइन विशेषज्ञ',
+    doctors: [
+      { nameEn: 'Dr. Neha Aggarwal, MD, DM (Endocrinology)', nameHi: 'डॉ. नेहा अग्रवाल, एमडी, डीएम', exp: '14 yrs exp', room: 'Endo OPD 1' },
+      { nameEn: 'Dr. Suresh Iyer, MD, DM (Endo)', nameHi: 'डॉ. सुरेश अय्यर, एमडी, डीएम', exp: '12 yrs exp', room: 'Endo OPD 2' },
+    ],
+  },
+  obesity: {
+    deptEn: 'Endocrinology & Weight Management',
+    deptHi: 'एंडोक्राइन एवं वज़न प्रबंधन क्लिनिक',
+    specialistEn: 'Endocrinologist & Bariatric Physician',
+    specialistHi: 'एंडोक्राइन व मोटापा विशेषज्ञ',
+    doctors: [
+      { nameEn: 'Dr. Neha Aggarwal, MD, DM (Endocrinology)', nameHi: 'डॉ. नेहा अग्रवाल, एमडी, डीएम', exp: '14 yrs exp', room: 'Endo OPD 1' },
+      { nameEn: 'Dt. Pooja Malhotra (Clinical Dietitian)', nameHi: 'डाइटीशियन पूजा मल्होत्रा', exp: '8 yrs exp', room: 'Diet Clinic' },
+    ],
+  },
+  kidney_stone: {
+    deptEn: 'Urology & Stone Clinic',
+    deptHi: 'मूत्र रोग एवं पथरी क्लिनिक',
+    specialistEn: 'Urologist & Endourologist',
+    specialistHi: 'मूत्र रोग विशेषज्ञ',
+    doctors: [
+      { nameEn: 'Dr. Tarun Mishra, MCh (Urology)', nameHi: 'डॉ. तरुण मिश्रा, एमसीएच', exp: '15 yrs exp', room: 'Uro OPD 1' },
+      { nameEn: 'Dr. Farhan Khan, MS, MCh (Urology)', nameHi: 'डॉ. फरहान खान, एमसीएच', exp: '10 yrs exp', room: 'Uro OPD 2' },
+    ],
+  },
+  menstrual_pain: {
+    deptEn: 'Obstetrics & Gynaecology OPD',
+    deptHi: 'स्त्री एवं प्रसूति रोग ओपीडी',
+    specialistEn: 'Gynaecologist & Obstetrician',
+    specialistHi: 'स्त्री रोग विशेषज्ञ',
+    doctors: [
+      { nameEn: 'Dr. Shalini Gupta, MS (OBGY)', nameHi: 'डॉ. शालिनी गुप्ता, एमएस', exp: '16 yrs exp', room: 'Gynae OPD 1' },
+      { nameEn: 'Dr. Reena Thomas, DGO, DNB', nameHi: 'डॉ. रीना थॉमस, डीजीओ', exp: '12 yrs exp', room: 'Gynae OPD 2' },
+    ],
+  },
+  pregnancy_care: {
+    deptEn: 'Antenatal & Maternity Care',
+    deptHi: 'गर्भावस्था एवं प्रसूति देखभाल',
+    specialistEn: 'Obstetrician & Fetal Medicine',
+    specialistHi: 'प्रसूति विशेषज्ञ',
+    doctors: [
+      { nameEn: 'Dr. Shalini Gupta, MS (OBGY)', nameHi: 'डॉ. शालिनी गुप्ता, एमएस', exp: '16 yrs exp', room: 'ANC Clinic 1' },
+      { nameEn: 'Dr. Reena Thomas, DGO, DNB', nameHi: 'डॉ. रीना थॉमस, डीजीओ', exp: '12 yrs exp', room: 'ANC Clinic 2' },
+    ],
+  },
+  toothache: {
+    deptEn: 'Dental Surgery & Endodontics',
+    deptHi: 'दंत शल्य एवं RCT क्लिनिक',
+    specialistEn: 'Dental Surgeon & Endodontist',
+    specialistHi: 'दंत चिकित्सक',
+    doctors: [
+      { nameEn: 'Dr. Arjun Patel, MDS (Dental Surgery)', nameHi: 'डॉ. अर्जुन पटेल, एमडीएस', exp: '12 yrs exp', room: 'Dental Chair 1' },
+      { nameEn: 'Dr. Sneha Kulkarni, MDS (Endodontics)', nameHi: 'डॉ. स्नेहा कुलकर्णी, एमडीएस', exp: '9 yrs exp', room: 'Dental Chair 2' },
+    ],
+  },
+  gum_problems: {
+    deptEn: 'Periodontics & Gum Care',
+    deptHi: 'मसूड़ा रोग एवं दंत सफाई क्लिनिक',
+    specialistEn: 'Periodontist',
+    specialistHi: 'मसूड़ा रोग विशेषज्ञ',
+    doctors: [
+      { nameEn: 'Dr. Arjun Patel, MDS (Dental Surgery)', nameHi: 'डॉ. अर्जुन पटेल, एमडीएस', exp: '12 yrs exp', room: 'Dental Chair 1' },
+      { nameEn: 'Dr. Sneha Kulkarni, MDS (Endodontics)', nameHi: 'डॉ. स्नेहा कुलकर्णी, एमडीएस', exp: '9 yrs exp', room: 'Dental Chair 2' },
+    ],
+  },
   default: {
     deptEn: 'Comprehensive Clinical OPD & Family Medicine',
     deptHi: 'समग्र क्लिनिकल ओपीडी एवं सामान्य परामर्श',

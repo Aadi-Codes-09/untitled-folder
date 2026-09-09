@@ -651,6 +651,1055 @@ export const fatigueFlow = [
 ]
 
 // ─────────────────────────────────────────────
+// DEDICATED FLOWS for extended conditions
+// Each asks about the SELECTED condition only — never another disease.
+// ─────────────────────────────────────────────
+
+// HIGH BLOOD PRESSURE
+export const hypertensionFlow = [
+  {
+    id: 'bp_q1', key: 'reading', type: 'single',
+    question: q('What are your recent BP readings (upper/lower)?', 'आपका हाल का बीपी कितना आता है? (ऊपर/नीचे)'),
+    options: [
+      l('dontknow', "Don't know — never checked", 'पता नहीं — कभी जांचा नहीं', 'Unknown'),
+      l('normal', 'Below 140/90', '140/90 से कम', 'Below 140/90'),
+      l('high', '140/90 to 160/100', '140/90 से 160/100 तक', 'Stage 1 high'),
+      l('vhigh', 'Above 160/100', '160/100 से ऊपर', 'Stage 2 high', true),
+      l('crisis', 'Above 180/110', '180/110 से ऊपर', 'Hypertensive crisis', true),
+    ],
+  },
+  {
+    id: 'bp_q2', key: 'associated', type: 'multi',
+    question: q('Do you feel any of these RIGHT NOW?', 'क्या इस समय इनमें से कुछ महसूस हो रहा है?'),
+    options: [
+      l('headache', 'Severe headache', 'तेज़ सिरदर्द', 'Headache'),
+      l('dizzy', 'Dizziness', 'चक्कर', 'Dizziness'),
+      l('chest', 'Chest pain or tightness', 'सीने में दर्द या जकड़न', 'Chest discomfort', true),
+      l('breath', 'Breathlessness', 'सांस फूलना', 'Dyspnea', true),
+      l('vision', 'Blurred vision', 'धुंधला दिखना', 'Visual disturbance', true),
+      l('none', 'None — I feel normal', 'कुछ नहीं — सामान्य लग रहा है', 'None', false, true),
+    ],
+  },
+  {
+    id: 'bp_q3', key: 'history', type: 'multi',
+    question: q('Which of these apply to you?', 'इनमें से क्या आप पर लागू होता है?'),
+    options: [
+      l('known', 'Already diagnosed with high BP', 'पहले से हाई BP है', 'Known hypertensive'),
+      l('medicine', 'Taking BP medicine regularly', 'रोज़ BP की दवा लेते हैं', 'On treatment'),
+      l('stopped', 'Stopped BP medicine on my own', 'दवा खुद से बंद कर दी', 'Stopped medicine', true),
+      l('diabetes', 'Diabetes', 'डायबिटीज', 'Diabetes'),
+      l('smoke', 'Smoking / tobacco / alcohol', 'धूम्रपान / तंबाकू / शराब', 'Risk habits'),
+      l('none', 'None of the above', 'इनमें से कोई नहीं', 'None', false, true),
+    ],
+  },
+  {
+    id: 'bp_q4', key: 'duration', type: 'single',
+    question: q('Since when is your BP high?', 'BP बढ़ा हुआ कब से है?'),
+    options: [
+      l('today', 'Found high today itself', 'आज ही ज़्यादा मिला', 'New detection'),
+      l('weeks', 'Few weeks', 'कुछ हफ्तों से', 'Weeks'),
+      l('months', 'Months / years', 'महीनों / सालों से', 'Chronic'),
+    ],
+  },
+  {
+    id: 'bp_q5', key: 'severity', type: 'scale', min: 1, max: 10,
+    question: q('How bad do you feel right now (1–10)?', 'इस समय कितना खराब लग रहा है? (1–10)'),
+    labels: { en: ['Fine','','','Uneasy','','','Bad','','','Worst'], hi: ['ठीक','','','बेचैनी','','','खराब','','','बहुत खराब'] },
+  },
+]
+
+// PALPITATIONS
+export const palpitationsFlow = [
+  {
+    id: 'pal_q1', key: 'trigger', type: 'single',
+    question: q('When does the fast heartbeat happen?', 'तेज़ धड़कन कब होती है?'),
+    options: [
+      l('rest', 'Even at rest', 'आराम करते समय भी', 'At rest'),
+      l('exertion', 'On exertion / climbing stairs', 'चलने / सीढ़ी चढ़ने पर', 'Exertional'),
+      l('stimulant', 'After tea, coffee or smoking', 'चाय, कॉफी या सिगरेट के बाद', 'Stimulant'),
+      l('sudden', 'Suddenly, without reason', 'अचानक, बिना कारण', 'Sudden onset', true),
+    ],
+  },
+  {
+    id: 'pal_q2', key: 'character', type: 'single',
+    question: q('How does the heartbeat feel?', 'धड़कन कैसी लगती है?'),
+    options: [
+      l('fast', 'Fast and pounding', 'तेज़ व ज़ोर से धड़कना', 'Fast pounding'),
+      l('irregular', 'Irregular / skipped beats', 'अनियमित / बीट छूटना', 'Irregular', true),
+      l('slowdizzy', 'Slow with dizziness', 'धीमी, चक्कर के साथ', 'Slow with dizziness', true),
+      l('withpain', 'Fast with chest pain', 'तेज़, सीने में दर्द के साथ', 'With chest pain', true),
+    ],
+  },
+  {
+    id: 'pal_q3', key: 'associated', type: 'multi',
+    question: q('What happens along with it?', 'इसके साथ क्या होता है?'),
+    options: [
+      l('faint', 'Fainting or blackout', 'बेहोशी', 'Syncope', true),
+      l('breath', 'Breathlessness', 'सांस फूलना', 'Dyspnea', true),
+      l('sweat', 'Sweating', 'पसीना', 'Sweating'),
+      l('anxiety', 'Anxiety / fear', 'घबराहट / डर', 'Anxiety'),
+      l('none', 'Nothing else', 'और कुछ नहीं', 'None', false, true),
+    ],
+  },
+  {
+    id: 'pal_q4', key: 'duration', type: 'single',
+    question: q('How long does each episode last?', 'हर दौर कितनी देर रहता है?'),
+    options: [
+      l('seconds', 'Few seconds', 'कुछ सेकंड', 'Seconds'),
+      l('minutes', 'Few minutes', 'कुछ मिनट', 'Minutes'),
+      l('hours', 'Hours', 'घंटों', 'Hours', true),
+      l('always', 'Almost always feeling it', 'लगभग हमेशा', 'Persistent', true),
+    ],
+  },
+  {
+    id: 'pal_q5', key: 'severity', type: 'scale', min: 1, max: 10,
+    question: q('How disturbing is it (1–10)?', 'कितनी परेशानी होती है? (1–10)'),
+    labels: { en: ['Mild','','','Moderate','','','Severe','','','Frightening'], hi: ['हल्का','','','मध्यम','','','तेज़','','','डरावना'] },
+  },
+]
+
+// SEIZURE
+export const seizureFlow = [
+  {
+    id: 'sz_q1', key: 'character', type: 'single',
+    question: q('What happened during the episode?', 'दौरे के समय क्या हुआ?'),
+    options: [
+      l('generalized', 'Full body shaking with unconsciousness', 'बेहोशी के साथ पूरे शरीर में झटके', 'Generalized', true),
+      l('staring', 'Blank staring for seconds', 'कुछ सेकंड एकटक देखना', 'Absence'),
+      l('focal', 'Jerks in one hand / leg / face', 'एक हाथ-पैर / चेहरे में झटके', 'Focal'),
+      l('fallonly', 'Sudden fall without shaking', 'बिना झटके अचानक गिरना', 'Drop', true),
+    ],
+  },
+  {
+    id: 'sz_q2', key: 'duration', type: 'single',
+    question: q('How long did it last?', 'कितनी देर रहा?'),
+    options: [
+      l('sec', 'Less than 1 minute', '1 मिनट से कम', '<1 min'),
+      l('min15', '1 to 5 minutes', '1 से 5 मिनट', '1-5 min'),
+      l('more5', 'More than 5 minutes', '5 मिनट से ज़्यादा', '>5 min', true),
+      l('unknown', "Don't know", 'पता नहीं', 'Unknown'),
+    ],
+  },
+  {
+    id: 'sz_q3', key: 'associated', type: 'multi',
+    question: q('What else happened?', 'और क्या हुआ?'),
+    options: [
+      l('tongue', 'Tongue bite / bleeding mouth', 'जीभ कटना / मुंह से खून', 'Tongue bite', true),
+      l('bladder', 'Urine passed during episode', 'दौरे में पेशाब निकलना', 'Incontinence', true),
+      l('injury', 'Injury from falling', 'गिरने से चोट', 'Injury', true),
+      l('confusion', 'Confusion lasting over 30 minutes after', 'आधे घंटे से ज़्यादा भ्रम', 'Prolonged confusion', true),
+      l('fever', 'Fever before the episode', 'दौरे से पहले बुखार', 'Febrile'),
+      l('none', 'None of these', 'इनमें से कुछ नहीं', 'None', false, true),
+    ],
+  },
+  {
+    id: 'sz_q4', key: 'history', type: 'multi',
+    question: q('Which of these apply?', 'इनमें से क्या लागू होता है?'),
+    options: [
+      l('first', 'First episode ever', 'पहला दौरा है', 'First episode', true),
+      l('repeat', 'Episodes keep repeating', 'दौरे बार-बार आते हैं', 'Recurrent', true),
+      l('missed', 'Missed epilepsy medicine dose', 'मिर्गी की दवा छूटी', 'Missed dose'),
+      l('headinjury', 'Recent head injury', 'हाल में सिर में चोट', 'Head injury', true),
+      l('alcohol', 'Alcohol use', 'शराब का सेवन', 'Alcohol'),
+      l('none', 'None of the above', 'इनमें से कोई नहीं', 'None', false, true),
+    ],
+  },
+]
+
+// EAR PAIN
+export const earPainFlow = [
+  {
+    id: 'ear_q1', key: 'site', type: 'single',
+    question: q('Which ear troubles you?', 'कौन से कान में तकलीफ है?'),
+    options: [
+      l('left', 'Left ear', 'बायां कान', 'Left'),
+      l('right', 'Right ear', 'दायां कान', 'Right'),
+      l('both', 'Both ears', 'दोनों कान', 'Both'),
+    ],
+  },
+  {
+    id: 'ear_q2', key: 'character', type: 'single',
+    question: q('What is the ear problem?', 'कान में क्या तकलीफ है?'),
+    options: [
+      l('pain', 'Pain only', 'सिर्फ दर्द', 'Pain'),
+      l('discharge', 'Water / pus discharge', 'पानी / मवाद बहना', 'Discharge', true),
+      l('hearing', 'Reduced hearing / blockage', 'सुनना कम / बंद लगना', 'Hearing loss'),
+      l('ringing', 'Ringing with dizziness', 'सीटी + चक्कर', 'Tinnitus with vertigo', true),
+    ],
+  },
+  {
+    id: 'ear_q3', key: 'associated', type: 'multi',
+    question: q('Do you also have?', 'क्या साथ में यह भी है?'),
+    options: [
+      l('fever', 'Fever', 'बुखार', 'Fever'),
+      l('cold', 'Cold / cough', 'सर्दी / खांसी', 'URI'),
+      l('blood', 'Blood in discharge', 'मवाद में खून', 'Bloody discharge', true),
+      l('water', 'Water entered recently', 'हाल में पानी गया', 'Water entry'),
+      l('none', 'None of these', 'इनमें से कुछ नहीं', 'None', false, true),
+    ],
+  },
+  {
+    id: 'ear_q4', key: 'duration', type: 'single',
+    question: q('Since when?', 'कब से है?'),
+    options: [
+      l('hours', 'Few hours', 'कुछ घंटे', 'Hours'),
+      l('days', 'Few days', 'कुछ दिन', 'Days'),
+      l('weeks', 'Weeks', 'हफ्तों से', 'Chronic', true),
+    ],
+  },
+  {
+    id: 'ear_q5', key: 'severity', type: 'scale', min: 1, max: 10,
+    question: q('Ear pain severity (1–10)?', 'कान दर्द कितना तेज़ है? (1–10)'),
+    labels: { en: ['Mild','','','Moderate','','','Severe','','','Worst'], hi: ['हल्का','','','मध्यम','','','तेज़','','','असहनीय'] },
+  },
+]
+
+// SORE THROAT
+export const soreThroatFlow = [
+  {
+    id: 'st_q1', key: 'character', type: 'single',
+    question: q('What troubles your throat most?', 'गले में सबसे ज़्यादा क्या तकलीफ है?'),
+    options: [
+      l('swallow', 'Pain while swallowing', 'निगलने में दर्द', 'Odynophagia'),
+      l('scratchy', 'Dry scratchy throat', 'सूखी खराश', 'Scratchy'),
+      l('voice', 'Hoarse / lost voice', 'आवाज़ बैठना / बंद होना', 'Hoarseness'),
+      l('patches', 'White patches on tonsils', 'टॉन्सिल पर सफेद दाने', 'Exudates', true),
+    ],
+  },
+  {
+    id: 'st_q2', key: 'associated', type: 'multi',
+    question: q('Do you also have?', 'क्या साथ में यह भी है?'),
+    options: [
+      l('fever', 'Fever', 'बुखार', 'Fever'),
+      l('cough', 'Cough / cold', 'खांसी / सर्दी', 'Cough'),
+      l('cantdrink', 'Cannot swallow even water', 'पानी भी नहीं निगल पा रहे', 'Cannot swallow fluids', true),
+      l('breathing', 'Noisy breathing / drooling', 'सांस में आवाज़ / लार टपकना', 'Stridor', true),
+      l('none', 'None of these', 'इनमें से कुछ नहीं', 'None', false, true),
+    ],
+  },
+  {
+    id: 'st_q3', key: 'duration', type: 'single',
+    question: q('Since when?', 'कब से है?'),
+    options: [
+      l('d12', '1–2 days', '1-2 दिन', 'Acute'),
+      l('d37', '3–7 days', '3-7 दिन', 'Subacute'),
+      l('week', 'More than a week', 'एक हफ्ते से ज़्यादा', 'Prolonged', true),
+    ],
+  },
+  {
+    id: 'st_q4', key: 'history', type: 'multi',
+    question: q('Which apply to you?', 'इनमें से क्या लागू होता है?'),
+    options: [
+      l('smoke', 'Smoking / tobacco', 'धूम्रपान / तंबाकू', 'Tobacco'),
+      l('acidity', 'Acidity / reflux burn', 'एसिडिटी / खट्टी डकार', 'Reflux'),
+      l('repeat', 'Throat pain keeps repeating', 'गले का दर्द बार-बार होता है', 'Recurrent'),
+      l('none', 'None of the above', 'इनमें से कोई नहीं', 'None', false, true),
+    ],
+  },
+  {
+    id: 'st_q5', key: 'severity', type: 'scale', min: 1, max: 10,
+    question: q('Throat pain severity (1–10)?', 'गले का दर्द कितना तेज़ है? (1–10)'),
+    labels: { en: ['Mild','','','Moderate','','','Severe','','','Worst'], hi: ['हल्का','','','मध्यम','','','तेज़','','','असहनीय'] },
+  },
+]
+
+// THYROID
+export const thyroidFlow = [
+  {
+    id: 'thy_q1', key: 'character', type: 'multi',
+    question: q('What changes have you noticed?', 'आपने क्या बदलाव देखे हैं?'),
+    options: [
+      l('wgain', 'Weight gain', 'वज़न बढ़ना', 'Weight gain'),
+      l('wloss', 'Weight loss despite eating', 'खाने पर भी वज़न घटना', 'Weight loss'),
+      l('fatigue', 'Constant tiredness', 'लगातार थकान', 'Fatigue'),
+      l('neck', 'Neck swelling (goitre)', 'गर्दन में सूजन', 'Goitre'),
+      l('tremor', 'Trembling hands / fast heartbeat', 'हाथ कांपना / तेज़ धड़कन', 'Tremor'),
+      l('coldheat', 'Feeling too cold or too hot', 'बहुत ठंड या गर्मी लगना', 'Temperature intolerance'),
+    ],
+  },
+  {
+    id: 'thy_q2', key: 'associated', type: 'multi',
+    question: q('Do you also have?', 'क्या साथ में यह भी है?'),
+    options: [
+      l('hair', 'Hair fall', 'बाल झड़ना', 'Hair fall'),
+      l('bowel', 'Constipation or loose motions', 'कब्ज या दस्त', 'Bowel change'),
+      l('menses', 'Irregular periods', 'अनियमित मासिक', 'Menstrual irregularity'),
+      l('mood', 'Mood swings / anxiety', 'मूड बदलना / चिंता', 'Mood change'),
+      l('none', 'None of these', 'इनमें से कुछ नहीं', 'None', false, true),
+    ],
+  },
+  {
+    id: 'thy_q3', key: 'history', type: 'single',
+    question: q('Thyroid history?', 'थायरॉइड का इतिहास?'),
+    options: [
+      l('never', 'Never diagnosed', 'कभी जांच नहीं हुई', 'Undiagnosed'),
+      l('hypo', 'Hypothyroid — on medicine', 'हाइपोथायरॉइड — दवा चल रही', 'Hypo on treatment'),
+      l('hyper', 'Hyperthyroid — on medicine', 'हाइपरथायरॉइड — दवा चल रही', 'Hyper on treatment'),
+      l('stopped', 'Was on medicine, stopped it', 'दवा बंद कर दी', 'Stopped medicine', true),
+    ],
+  },
+  {
+    id: 'thy_q4', key: 'duration', type: 'single',
+    question: q('Since when are these changes?', 'ये बदलाव कब से हैं?'),
+    options: [
+      l('weeks', 'Few weeks', 'कुछ हफ्तों से', 'Weeks'),
+      l('months', 'Few months', 'कुछ महीनों से', 'Months'),
+      l('years', 'Years', 'सालों से', 'Years'),
+    ],
+  },
+  {
+    id: 'thy_q5', key: 'severity', type: 'scale', min: 1, max: 10,
+    question: q('How much does it affect daily life (1–10)?', 'रोज़मर्रा पर कितना असर है? (1–10)'),
+    labels: { en: ['Little','','','Some','','','Lot','','','Severe'], hi: ['थोड़ा','','','कुछ','','','ज़्यादा','','','बहुत'] },
+  },
+]
+
+// OBESITY
+export const obesityFlow = [
+  {
+    id: 'ob_q1', key: 'duration', type: 'single',
+    question: q('Since when is weight increasing?', 'वज़न बढ़ना कब से है?'),
+    options: [
+      l('months', 'Few months', 'कुछ महीनों से', 'Months'),
+      l('y12', '1–2 years', '1-2 साल से', '1-2 years'),
+      l('years', 'Many years', 'कई सालों से', 'Chronic'),
+      l('child', 'Since childhood', 'बचपन से', 'Childhood onset'),
+    ],
+  },
+  {
+    id: 'ob_q2', key: 'cause', type: 'single',
+    question: q('What seems to be the main reason?', 'मुख्य कारण क्या लगता है?'),
+    options: [
+      l('food', 'Overeating / oily food', 'ज़्यादा खाना / तला-भुना', 'Overeating'),
+      l('sweet', 'Sweets / cold drinks', 'मीठा / कोल्ड ड्रिंक', 'Sugar excess'),
+      l('noexercise', 'No physical activity', 'बिल्कुल व्यायाम नहीं', 'Sedentary'),
+      l('medical', 'Thyroid / PCOS / medicine', 'थायरॉइड / PCOS / दवा', 'Medical cause'),
+    ],
+  },
+  {
+    id: 'ob_q3', key: 'associated', type: 'multi',
+    question: q('Do you also face?', 'क्या साथ में यह भी है?'),
+    options: [
+      l('breath', 'Breathlessness on walking', 'चलने पर सांस फूलना', 'Exertional dyspnea', true),
+      l('joint', 'Knee / joint pain', 'घुटने / जोड़ों में दर्द', 'Joint pain'),
+      l('bpsugar', 'High BP or sugar detected', 'BP या शुगर निकला', 'Metabolic', true),
+      l('snore', 'Loud snoring / daytime sleepiness', 'तेज़ खर्राटे / दिन में नींद', 'Sleep apnea'),
+      l('none', 'None of these', 'इनमें से कुछ नहीं', 'None', false, true),
+    ],
+  },
+  {
+    id: 'ob_q4', key: 'attempts', type: 'single',
+    question: q('What have you tried so far?', 'अब तक क्या कोशिश की?'),
+    options: [
+      l('nothing', 'Nothing yet', 'अभी कुछ नहीं', 'No attempt'),
+      l('diet', 'Diet control', 'परहेज़', 'Diet'),
+      l('exercise', 'Exercise / walking', 'व्यायाम / टहलना', 'Exercise'),
+      l('products', 'Weight-loss powders / pills', 'वज़न घटाने वाले पाउडर / गोली', 'Unsupervised products'),
+    ],
+  },
+  {
+    id: 'ob_q5', key: 'severity', type: 'scale', min: 1, max: 10,
+    question: q('How much does weight trouble you daily (1–10)?', 'वज़न से रोज़ कितनी परेशानी है? (1–10)'),
+    labels: { en: ['Little','','','Some','','','Lot','','','Severe'], hi: ['थोड़ी','','','कुछ','','','ज़्यादा','','','बहुत'] },
+  },
+]
+// Red-flag driven: severity + warning signs decide triage.
+// ─────────────────────────────────────────────
+export const genericFlow = [
+  {
+    id: 'gx_q1', key: 'duration', type: 'single',
+    question: q('How long have you had this problem?', 'यह समस्या कब से है?'),
+    options: [
+      l('hours', 'Few hours', 'कुछ घंटे', 'Acute hours'),
+      l('days', 'Few days', 'कुछ दिन', 'Acute days'),
+      l('weeks', 'Weeks', 'हफ्तों से', 'Subacute'),
+      l('months', 'Months or longer', 'महीनों से या ज़्यादा', 'Chronic', true),
+    ],
+  },
+  {
+    id: 'gx_q2', key: 'onset', type: 'single',
+    question: q('How did it start?', 'शुरुआत कैसे हुई?'),
+    options: [
+      l('sudden', 'Suddenly', 'अचानक', 'Sudden onset', true),
+      l('gradual', 'Gradually', 'धीरे-धीरे', 'Gradual onset'),
+      l('recurrent', 'Comes and goes', 'आता-जाता रहता है', 'Recurrent'),
+    ],
+  },
+  {
+    id: 'gx_q3', key: 'associated', type: 'multi',
+    question: q('Do you have any of these warning signs?', 'क्या इनमें से कोई गंभीर लक्षण है?'),
+    options: [
+      l('breathing', 'Difficulty breathing', 'सांस लेने में तकलीफ', 'Dyspnea', true),
+      l('chestpain', 'Chest pain or pressure', 'सीने में दर्द या दबाव', 'Chest pain', true),
+      l('bleeding', 'Unusual bleeding', 'असामान्य खून बहना', 'Bleeding', true),
+      l('highfever', 'High fever with chills', 'ठंड लगकर तेज़ बुखार', 'High fever', true),
+      l('unconscious', 'Fainting / loss of consciousness', 'बेहोशी', 'Syncope', true),
+      l('none', 'None of these', 'इनमें से कोई नहीं', 'None', false, true),
+    ],
+  },
+  {
+    id: 'gx_q4', key: 'severity', type: 'scale', min: 1, max: 10,
+    question: q('How severe is it (1–10)?', 'कितना गंभीर है? (1–10)'),
+    labels: { en: ['Mild','','','Moderate','','','Severe','','','Worst'], hi: ['हल्का','','','मध्यम','','','तेज़','','','असहनीय'] },
+  },
+]
+
+// KIDNEY STONE
+export const kidneyStoneFlow = [
+  {
+    id: 'ks_q1', key: 'site', type: 'single',
+    question: q('Where is the pain?', 'दर्द कहाँ है?'),
+    options: [
+      l('loin', 'Back side (loin)', 'पीछे कमर की ओर', 'Loin'),
+      l('front', 'Front abdomen', 'आगे पेट में', 'Anterior abdomen'),
+      l('groin', 'Going towards groin / thigh', 'जांघ / निचले हिस्से की ओर जाता है', 'Radiating to groin'),
+      l('both', 'Both sides', 'दोनों ओर', 'Bilateral'),
+    ],
+  },
+  {
+    id: 'ks_q2', key: 'character', type: 'single',
+    question: q('How is the pain?', 'दर्द कैसा है?'),
+    options: [
+      l('colic', 'Comes in waves (severe then eases)', 'लहरों में आता है (तेज़ फिर कम)', 'Colicky'),
+      l('dull', 'Constant dull ache', 'लगातार हल्का दर्द', 'Dull constant'),
+      l('burning', 'Burning while urinating', 'पेशाब में जलन', 'Dysuria'),
+      l('blood', 'Blood in urine', 'पेशाब में खून', 'Hematuria', true),
+    ],
+  },
+  {
+    id: 'ks_q3', key: 'associated', type: 'multi',
+    question: q('Do you also have?', 'क्या साथ में यह भी है?'),
+    options: [
+      l('nausea', 'Nausea / vomiting', 'मतली / उल्टी', 'Nausea'),
+      l('fever', 'Fever with chills', 'ठंड लगकर बुखार', 'Fever with chills', true),
+      l('urge', 'Frequent urge, little urine', 'बार-बार लगना, थोड़ा आना', 'Frequency with low output', true),
+      l('cloudy', 'Cloudy / foul-smelling urine', 'गंदला / बदबूदार पेशाब', 'Cloudy urine'),
+      l('none', 'None of these', 'इनमें से कुछ नहीं', 'None', false, true),
+    ],
+  },
+  {
+    id: 'ks_q4', key: 'history', type: 'multi',
+    question: q('Which apply to you?', 'इनमें से क्या लागू होता है?'),
+    options: [
+      l('before', 'Stone problem earlier too', 'पहले भी पथरी हुई', 'Recurrent stone'),
+      l('lesswater', 'Drinking very little water', 'बहुत कम पानी पीना', 'Low intake'),
+      l('family', 'Stones in family', 'परिवार में पथरी', 'Family history'),
+      l('big', 'Known stone bigger than 8mm', '8mm से बड़ी पथरी पता है', 'Large stone', true),
+      l('none', 'None of the above', 'इनमें से कोई नहीं', 'None', false, true),
+    ],
+  },
+  {
+    id: 'ks_q5', key: 'severity', type: 'scale', min: 1, max: 10,
+    question: q('Pain severity (1–10)?', 'दर्द कितना तेज़ है? (1–10)'),
+    labels: { en: ['Mild','','','Moderate','','','Severe','','','Worst'], hi: ['हल्का','','','मध्यम','','','तेज़','','','असहनीय'] },
+  },
+]
+
+// MENSTRUAL PAIN
+export const menstrualFlow = [
+  {
+    id: 'mp_q1', key: 'timing', type: 'single',
+    question: q('When is the pain worst?', 'दर्द सबसे ज़्यादा कब होता है?'),
+    options: [
+      l('before', '1–2 days before periods', 'मासिक से 1-2 दिन पहले', 'Premenstrual'),
+      l('first2', 'First 2 days of periods', 'पहले 2 दिन', 'First 2 days'),
+      l('all', 'All period days', 'सभी दिनों', 'Throughout'),
+      l('month', 'Even without periods, all month', 'बिना मासिक के भी, पूरे महीने', 'Non-cyclical', true),
+    ],
+  },
+  {
+    id: 'mp_q2', key: 'bleeding', type: 'single',
+    question: q('How is the bleeding?', 'रक्तस्राव कैसा है?'),
+    options: [
+      l('normal', 'Normal', 'सामान्य', 'Normal'),
+      l('heavy', 'Heavy with clots', 'थक्कों के साथ ज़्यादा', 'Heavy with clots'),
+      l('hourly', 'Pad soaking every hour', 'हर घंटे पैड भरना', 'Soaking hourly', true),
+      l('missed', 'Periods missed — pregnancy possible', 'मासिक रुका — गर्भ संभव', 'Missed — test needed', true),
+    ],
+  },
+  {
+    id: 'mp_q3', key: 'associated', type: 'multi',
+    question: q('Do you also have?', 'क्या साथ में यह भी है?'),
+    options: [
+      l('nausea', 'Nausea / vomiting', 'मतली / उल्टी', 'Nausea'),
+      l('back', 'Back / leg pain', 'कमर / पैर दर्द', 'Backache'),
+      l('dizzy', 'Dizziness / fainting', 'चक्कर / बेहोशी', 'Dizziness', true),
+      l('discharge', 'Foul-smelling white discharge', 'बदबूदार सफेद पानी', 'Foul discharge', true),
+      l('none', 'None of these', 'इनमें से कुछ नहीं', 'None', false, true),
+    ],
+  },
+  {
+    id: 'mp_q4', key: 'history', type: 'single',
+    question: q('Pain pattern?', 'दर्द का पैटर्न?'),
+    options: [
+      l('teen', 'Painful since teenage', 'किशोरावस्था से दर्द होता है', 'Since menarche'),
+      l('new', 'Painless earlier, severe now', 'पहले ठीक था, अब तेज़ दर्द', 'New severe pattern', true),
+      l('pcos', 'PCOS / thyroid / anemia known', 'PCOS / थायरॉइड / खून की कमी है', 'Known condition'),
+    ],
+  },
+  {
+    id: 'mp_q5', key: 'severity', type: 'scale', min: 1, max: 10,
+    question: q('Pain severity (1–10)?', 'दर्द कितना तेज़ है? (1–10)'),
+    labels: { en: ['Mild','','','Moderate','','','Severe','','','Worst'], hi: ['हल्का','','','मध्यम','','','तेज़','','','असहनीय'] },
+  },
+]
+
+// NECK PAIN
+export const neckPainFlow = [
+  {
+    id: 'np_q1', key: 'site', type: 'single',
+    question: q('Where exactly is the neck pain?', 'गर्दन में दर्द कहाँ है?'),
+    options: [
+      l('back', 'Back of the neck', 'गर्दन के पीछे', 'Posterior neck'),
+      l('oneside', 'One side of neck', 'एक ओर', 'Unilateral'),
+      l('shoulder', 'Neck + shoulder', 'गर्दन + कंधा', 'Neck-shoulder'),
+      l('headache', 'Neck + headache', 'गर्दन + सिरदर्द', 'With headache'),
+    ],
+  },
+  {
+    id: 'np_q2', key: 'radiation', type: 'single',
+    question: q('Does the pain travel anywhere?', 'क्या दर्द कहीं जाता है?'),
+    options: [
+      l('stays', 'Stays in the neck', 'गर्दन में ही रहता है', 'Localized'),
+      l('shoulder', 'Into shoulder / arm', 'कंधे / बांह में', 'Radiating to arm'),
+      l('numb', 'Numbness / tingling in hand', 'हाथ में सुन्नपन / झनझनाहट', 'Numbness', true),
+      l('weak', 'Weakness holding objects', 'चीज़ पकड़ने में कमज़ोरी', 'Weakness', true),
+    ],
+  },
+  {
+    id: 'np_q3', key: 'onset', type: 'single',
+    question: q('How did it start?', 'शुरुआत कैसे हुई?'),
+    options: [
+      l('pillow', 'Wrong pillow / sleeping posture', 'गलत तकिया / सोने की मुद्रा', 'Postural'),
+      l('mobile', 'Long mobile / computer use', 'लंबे समय मोबाइल / कंप्यूटर', 'Screen posture'),
+      l('jerk', 'Sudden jerk or accident', 'अचानक झटका या दुर्घटना', 'Trauma', true),
+      l('gradual', 'Gradually, no clear reason', 'धीरे-धीरे, बिना कारण', 'Gradual'),
+    ],
+  },
+  {
+    id: 'np_q4', key: 'associated', type: 'multi',
+    question: q('Do you also have?', 'क्या साथ में यह भी है?'),
+    options: [
+      l('stiff', 'Cannot turn neck', 'गर्दन घुमा नहीं पाते', 'Stiffness'),
+      l('dizzy', 'Dizziness', 'चक्कर', 'Dizziness'),
+      l('headache', 'Headache', 'सिरदर्द', 'Headache'),
+      l('fever', 'Fever with neck stiffness', 'बुखार के साथ अकड़न', 'Fever with rigidity', true),
+      l('none', 'None of these', 'इनमें से कुछ नहीं', 'None', false, true),
+    ],
+  },
+  {
+    id: 'np_q5', key: 'severity', type: 'scale', min: 1, max: 10,
+    question: q('Neck pain severity (1–10)?', 'गर्दन दर्द कितना तेज़ है? (1–10)'),
+    labels: { en: ['Mild','','','Moderate','','','Severe','','','Worst'], hi: ['हल्का','','','मध्यम','','','तेज़','','','असहनीय'] },
+  },
+]
+
+// MUSCLE PAIN
+export const musclePainFlow = [
+  {
+    id: 'msp_q1', key: 'site', type: 'single',
+    question: q('Where is the muscle pain?', 'मांसपेशी दर्द कहाँ है?'),
+    options: [
+      l('one', 'One body part', 'शरीर के एक हिस्से में', 'Localized'),
+      l('legs', 'Both legs', 'दोनों पैरों में', 'Both legs'),
+      l('whole', 'Whole body', 'पूरे शरीर में', 'Generalized'),
+      l('backlimb', 'Back + arms / legs', 'कमर + हाथ-पैर', 'Back with limbs'),
+    ],
+  },
+  {
+    id: 'msp_q2', key: 'onset', type: 'single',
+    question: q('How did it start?', 'शुरुआत कैसे हुई?'),
+    options: [
+      l('exercise', 'After heavy work / exercise', 'भारी काम / व्यायाम के बाद', 'Exertional'),
+      l('fever', 'With fever / flu', 'बुखार / फ्लू के साथ', 'Febrile illness'),
+      l('noreason', 'Without any clear reason', 'बिना किसी कारण', 'Spontaneous'),
+      l('medicine', 'After starting a new medicine', 'नई दवा शुरू करने के बाद', 'Drug-induced'),
+    ],
+  },
+  {
+    id: 'msp_q3', key: 'associated', type: 'multi',
+    question: q('Do you also have?', 'क्या साथ में यह भी है?'),
+    options: [
+      l('fever', 'Fever', 'बुखार', 'Fever'),
+      l('weak', 'Weakness climbing stairs / rising', 'सीढ़ी / उठने में कमज़ोरी', 'Weakness'),
+      l('cramps', 'Night cramps', 'रात में ऐंठन', 'Cramps'),
+      l('darkurine', 'Dark brown urine', 'गहरा भूरा पेशाब', 'Dark urine', true),
+      l('swelling', 'Muscle swelling', 'मांसपेशी में सूजन', 'Swelling', true),
+      l('none', 'None of these', 'इनमें से कुछ नहीं', 'None', false, true),
+    ],
+  },
+  {
+    id: 'msp_q4', key: 'duration', type: 'single',
+    question: q('Since when?', 'कब से है?'),
+    options: [
+      l('days', 'Few days', 'कुछ दिन', 'Days'),
+      l('weeks', 'Few weeks', 'कुछ हफ्ते', 'Weeks'),
+      l('months', 'Months', 'महीनों से', 'Chronic', true),
+    ],
+  },
+  {
+    id: 'msp_q5', key: 'severity', type: 'scale', min: 1, max: 10,
+    question: q('Muscle pain severity (1–10)?', 'मांसपेशी दर्द कितना तेज़ है? (1–10)'),
+    labels: { en: ['Mild','','','Moderate','','','Severe','','','Worst'], hi: ['हल्का','','','मध्यम','','','तेज़','','','असहनीय'] },
+  },
+]
+
+// VERTIGO
+export const vertigoFlow = [
+  {
+    id: 'vx_q1', key: 'character', type: 'single',
+    question: q('How is the chakkar?', 'चक्कर कैसा लगता है?'),
+    options: [
+      l('spinning', 'Room spins around', 'कमरा घूमता है', 'Spinning'),
+      l('unsteady', 'Unsteady while walking', 'चलने में लड़खड़ाहट', 'Unsteadiness'),
+      l('blackout', 'Blackout on standing', 'खड़े होते ही अंधेरा', 'Presyncope'),
+      l('light', 'Light-headed feeling', 'हल्का सिर', 'Lightheadedness'),
+    ],
+  },
+  {
+    id: 'vx_q2', key: 'trigger', type: 'single',
+    question: q('When does it come?', 'कब आता है?'),
+    options: [
+      l('bed', 'Turning in bed / looking up', 'बिस्तर में करवट / ऊपर देखने पर', 'Positional'),
+      l('stand', 'Standing up suddenly', 'अचानक खड़े होने पर', 'Orthostatic'),
+      l('continuous', 'Continuous for hours', 'घंटों लगातार', 'Continuous'),
+      l('injury', 'After loud noise / head injury', 'तेज़ आवाज़ / सिर की चोट के बाद', 'Post-trauma', true),
+    ],
+  },
+  {
+    id: 'vx_q3', key: 'associated', type: 'multi',
+    question: q('Do you also have?', 'क्या साथ में यह भी है?'),
+    options: [
+      l('nausea', 'Nausea / vomiting', 'मतली / उल्टी', 'Nausea'),
+      l('hearing', 'Hearing loss / ringing', 'सुनना कम / सीटी', 'Hearing change', true),
+      l('neuro', 'Double vision / slurred speech', 'दोहरी दृष्टि / लड़खड़ाती बोली', 'Neuro signs', true),
+      l('headache', 'Headache', 'सिरदर्द', 'Headache'),
+      l('none', 'None of these', 'इनमें से कुछ नहीं', 'None', false, true),
+    ],
+  },
+  {
+    id: 'vx_q4', key: 'duration', type: 'single',
+    question: q('How long does each spell last?', 'हर दौर कितनी देर रहता है?'),
+    options: [
+      l('sec', 'Seconds', 'सेकंड', 'Seconds'),
+      l('min', 'Minutes', 'मिनट', 'Minutes'),
+      l('hours', 'Hours', 'घंटे', 'Hours'),
+      l('days', 'Days together', 'दिनों तक', 'Days', true),
+    ],
+  },
+  {
+    id: 'vx_q5', key: 'severity', type: 'scale', min: 1, max: 10,
+    question: q('How severe is the spinning (1–10)?', 'घूमना कितना तेज़ है? (1–10)'),
+    labels: { en: ['Mild','','','Moderate','','','Severe','','','Cannot stand'], hi: ['हल्का','','','मध्यम','','','तेज़','','','खड़ा नहीं हो सकते'] },
+  },
+]
+
+// DEHYDRATION
+export const dehydrationFlow = [
+  {
+    id: 'dh_q1', key: 'character', type: 'multi',
+    question: q('What is happening?', 'क्या हो रहा है?'),
+    options: [
+      l('lessurine', 'Very less urination', 'बहुत कम पेशाब', 'Oliguria', true),
+      l('dark', 'Dark yellow urine', 'गहरा पीला पेशाब', 'Dark urine'),
+      l('thirst', 'Extreme thirst / dry mouth', 'बहुत प्यास / सूखा मुंह', 'Thirst'),
+      l('losses', 'Loose motions / vomiting', 'दस्त / उल्टी', 'Fluid losses'),
+      l('standdizzy', 'Dizziness on standing', 'खड़े होने पर चक्कर', 'Orthostatic dizziness', true),
+    ],
+  },
+  {
+    id: 'dh_q2', key: 'intake', type: 'single',
+    question: q('How much fluid are you taking?', 'कितना पानी / तरल ले रहे हैं?'),
+    options: [
+      l('normal', 'Normal amount', 'सामान्य', 'Normal'),
+      l('less', 'Less than usual', 'सामान्य से कम', 'Reduced'),
+      l('almostnone', 'Almost nothing', 'लगभग कुछ नहीं', 'Minimal', true),
+      l('cantkeep', 'Cannot keep fluids down', 'पानी भी नहीं रुकता', 'Cannot retain', true),
+    ],
+  },
+  {
+    id: 'dh_q3', key: 'associated', type: 'multi',
+    question: q('Do you also have?', 'क्या साथ में यह भी है?'),
+    options: [
+      l('fever', 'Fever', 'बुखार', 'Fever'),
+      l('diarrhea', 'Diarrhea', 'दस्त', 'Diarrhea'),
+      l('vomiting', 'Vomiting', 'उल्टी', 'Vomiting'),
+      l('confusion', 'Confusion / extreme weakness', 'भ्रम / बहुत कमज़ोरी', 'Confusion', true),
+      l('none', 'None of these', 'इनमें से कुछ नहीं', 'None', false, true),
+    ],
+  },
+  {
+    id: 'dh_q4', key: 'risk', type: 'single',
+    question: q('Who is the patient?', 'रोगी कौन है?'),
+    options: [
+      l('adult', 'Adult', 'वयस्क', 'Adult'),
+      l('elderchild', 'Elderly person / small child', 'बुजुर्ग / छोटा बच्चा', 'Vulnerable age', true),
+      l('chronic', 'Diabetes / kidney / heart patient', 'डायबिटीज / किडनी / दिल के रोगी', 'Chronic disease', true),
+    ],
+  },
+  {
+    id: 'dh_q5', key: 'severity', type: 'scale', min: 1, max: 10,
+    question: q('How weak do you feel (1–10)?', 'कितनी कमज़ोरी लग रही है? (1–10)'),
+    labels: { en: ['Fine','','','Weak','','','Very weak','','','Collapse'], hi: ['ठीक','','','कमज़ोर','','','बहुत कमज़ोर','','','गिर रहे'] },
+  },
+]
+
+// DIARRHEA
+export const diarrheaFlow = [
+  {
+    id: 'dr_q1', key: 'character', type: 'single',
+    question: q('How are the motions?', 'दस्त कैसे हैं?'),
+    options: [
+      l('watery', 'Watery, 3–5 times a day', 'पानी जैसे, दिन में 3-5 बार', 'Watery moderate'),
+      l('freq', 'More than 8 times a day', 'दिन में 8 से ज़्यादा बार', 'Very frequent', true),
+      l('mucus', 'With mucus', 'आंव / लेस के साथ', 'Mucus'),
+      l('blood', 'With blood', 'खून के साथ', 'Bloody', true),
+    ],
+  },
+  {
+    id: 'dr_q2', key: 'duration', type: 'single',
+    question: q('Since when?', 'कब से है?'),
+    options: [
+      l('day', 'Less than a day', 'एक दिन से कम', '<1 day'),
+      l('d13', '1–3 days', '1-3 दिन', '1-3 days'),
+      l('more3', 'More than 3 days', '3 दिन से ज़्यादा', '>3 days', true),
+    ],
+  },
+  {
+    id: 'dr_q3', key: 'associated', type: 'multi',
+    question: q('Do you also have?', 'क्या साथ में यह भी है?'),
+    options: [
+      l('cramps', 'Stomach cramps', 'पेट में मरोड़', 'Cramps'),
+      l('vomiting', 'Vomiting', 'उल्टी', 'Vomiting'),
+      l('fever', 'Fever', 'बुखार', 'Fever'),
+      l('nourine', 'No urine / very dry mouth', 'पेशाब बंद / बहुत सूखा मुंह', 'Dehydration signs', true),
+      l('none', 'None of these', 'इनमें से कुछ नहीं', 'None', false, true),
+    ],
+  },
+  {
+    id: 'dr_q4', key: 'cause', type: 'single',
+    question: q('What may have caused it?', 'कारण क्या हो सकता है?'),
+    options: [
+      l('outside', 'Outside / street food', 'बाहर का खाना', 'Outside food'),
+      l('water', 'Unclean water', 'गंदा पानी', 'Water'),
+      l('antibiotic', 'During antibiotic course', 'एंटीबायोटिक के दौरान', 'Antibiotic-associated'),
+      l('vulnerable', 'Patient is a child / elderly', 'रोगी बच्चा / बुजुर्ग है', 'Vulnerable patient', true),
+    ],
+  },
+  {
+    id: 'dr_q5', key: 'count', type: 'single',
+    question: q('How many motions in the last 24 hours?', 'पिछले 24 घंटे में कितनी बार दस्त?'),
+    options: [
+      l('lt5', 'Less than 5', '5 से कम', '<5'),
+      l('f510', '5 to 10', '5 से 10', '5-10'),
+      l('gt10', 'More than 10', '10 से ज़्यादा', '>10', true),
+    ],
+  },
+]
+
+// CONSTIPATION
+export const constipationFlow = [
+  {
+    id: 'cs_q1', key: 'frequency', type: 'single',
+    question: q('How often do you pass motion?', 'शौच कितनी बार होता है?'),
+    options: [
+      l('dailyhard', 'Daily but very hard', 'रोज़ पर बहुत कड़ा', 'Daily hard'),
+      l('d23', 'Every 2–3 days', '2-3 दिन में', 'Every 2-3 days'),
+      l('gap3', 'Gap of more than 3 days', '3 दिन से ज़्यादा अंतर', '>3 day gap', true),
+    ],
+  },
+  {
+    id: 'cs_q2', key: 'associated', type: 'multi',
+    question: q('Do you also have?', 'क्या साथ में यह भी है?'),
+    options: [
+      l('bloat', 'Stomach pain / bloating', 'पेट दर्द / फूलना', 'Bloating'),
+      l('bleed', 'Bleeding with motion', 'शौच में खून', 'Bleeding', true),
+      l('obstruct', 'Vomiting with no gas or stool passing', 'उल्टी, गैस-शौच बंद', 'Obstruction signs', true),
+      l('weightloss', 'Thin pencil-like stool with weight loss', 'पतला शौच + वज़न घटना', 'Alarm signs', true),
+      l('none', 'None of these', 'इनमें से कुछ नहीं', 'None', false, true),
+    ],
+  },
+  {
+    id: 'cs_q3', key: 'duration', type: 'single',
+    question: q('Since when?', 'कब से है?'),
+    options: [
+      l('days', 'Few days', 'कुछ दिन', 'Days'),
+      l('weeks', 'Few weeks', 'कुछ हफ्ते', 'Weeks'),
+      l('months', 'Months / years', 'महीने / साल', 'Chronic'),
+    ],
+  },
+  {
+    id: 'cs_q4', key: 'cause', type: 'single',
+    question: q('Possible reason?', 'संभावित कारण?'),
+    options: [
+      l('fibre', 'Low fibre / less water', 'कम फाइबर / कम पानी', 'Low fibre'),
+      l('urge', 'Ignoring the urge (busy schedule)', 'हाजत रोकना', 'Ignoring urge'),
+      l('medicine', 'New medicine (iron / painkiller)', 'नई दवा (आयरन / दर्द निवारक)', 'Drug-induced'),
+      l('disease', 'Thyroid / diabetes', 'थायरॉइड / डायबिटीज', 'Systemic cause'),
+    ],
+  },
+  {
+    id: 'cs_q5', key: 'severity', type: 'scale', min: 1, max: 10,
+    question: q('How uncomfortable is it (1–10)?', 'कितनी परेशानी है? (1–10)'),
+    labels: { en: ['Little','','','Some','','','Lot','','','Severe'], hi: ['थोड़ी','','','कुछ','','','ज़्यादा','','','बहुत'] },
+  },
+]
+
+// VOMITING
+export const vomitingFlow = [
+  {
+    id: 'vo_q1', key: 'character', type: 'single',
+    question: q('How is the vomiting?', 'उल्टी कैसी है?'),
+    options: [
+      l('once', '1–2 times only', 'सिर्फ 1-2 बार', '1-2 episodes'),
+      l('repeat', 'Repeatedly, but keeping some fluids', 'बार-बार, पर कुछ पानी रुकता है', 'Repeated'),
+      l('cantkeep', 'Cannot keep even water down', 'पानी भी नहीं रुकता', 'Cannot retain fluids', true),
+      l('blood', 'Blood in vomit / black like coffee', 'खून / कॉफी जैसा काला', 'Hematemesis', true),
+    ],
+  },
+  {
+    id: 'vo_q2', key: 'associated', type: 'multi',
+    question: q('Do you also have?', 'क्या साथ में यह भी है?'),
+    options: [
+      l('stomach', 'Stomach pain', 'पेट दर्द', 'Abdominal pain'),
+      l('loose', 'Loose motions', 'दस्त', 'Diarrhea'),
+      l('fever', 'Fever', 'बुखार', 'Fever'),
+      l('headneck', 'Severe headache with neck stiffness', 'तेज़ सिरदर्द + गर्दन अकड़न', 'Meningism', true),
+      l('chest', 'Chest pain / sweating', 'सीने में दर्द / पसीना', 'Cardiac-type', true),
+      l('none', 'None of these', 'इनमें से कुछ नहीं', 'None', false, true),
+    ],
+  },
+  {
+    id: 'vo_q3', key: 'trigger', type: 'single',
+    question: q('What seems to trigger it?', 'कारण क्या लगता है?'),
+    options: [
+      l('food', 'Outside / stale food', 'बाहर का / बासी खाना', 'Food'),
+      l('over', 'Overeating / alcohol', 'ज़्यादा खाना / शराब', 'Overindulgence'),
+      l('medicine', 'New medicine started', 'नई दवा शुरू की', 'Drug-induced'),
+      l('preg', 'Missed periods — pregnancy possible', 'मासिक रुका — गर्भ संभव', 'Possible pregnancy'),
+    ],
+  },
+  {
+    id: 'vo_q4', key: 'duration', type: 'single',
+    question: q('Since when?', 'कब से है?'),
+    options: [
+      l('hours', 'Few hours', 'कुछ घंटे', 'Hours'),
+      l('d12', '1–2 days', '1-2 दिन', '1-2 days'),
+      l('more2', 'More than 2 days', '2 दिन से ज़्यादा', '>2 days', true),
+    ],
+  },
+  {
+    id: 'vo_q5', key: 'count', type: 'single',
+    question: q('How many times vomited in 24 hours?', '24 घंटे में कितनी बार उल्टी?'),
+    options: [
+      l('lt3', 'Less than 3', '3 से कम', '<3'),
+      l('f36', '3 to 6', '3 से 6', '3-6'),
+      l('gt6', 'More than 6', '6 से ज़्यादा', '>6', true),
+    ],
+  },
+]
+
+// COMMON COLD
+export const coldFlow = [
+  {
+    id: 'cc_q1', key: 'character', type: 'multi',
+    question: q('What troubles you most?', 'सबसे ज़्यादा क्या तकलीफ है?'),
+    options: [
+      l('runny', 'Runny nose', 'बहती नाक', 'Rhinorrhea'),
+      l('blocked', 'Blocked nose', 'बंद नाक', 'Congestion'),
+      l('sneeze', 'Continuous sneezing', 'लगातार छींकें', 'Sneezing'),
+      l('scratch', 'Throat scratch', 'गले में खराश', 'Throat irritation'),
+      l('fever', 'Mild fever / body ache', 'हल्का बुखार / बदन दर्द', 'Low-grade fever'),
+    ],
+  },
+  {
+    id: 'cc_q2', key: 'duration', type: 'single',
+    question: q('Since when?', 'कब से है?'),
+    options: [
+      l('d13', '1–3 days', '1-3 दिन', 'Acute'),
+      l('d47', '4–7 days', '4-7 दिन', 'Subacute'),
+      l('more10', 'More than 10 days', '10 दिन से ज़्यादा', 'Prolonged', true),
+    ],
+  },
+  {
+    id: 'cc_q3', key: 'associated', type: 'multi',
+    question: q('Do you also have?', 'क्या साथ में यह भी है?'),
+    options: [
+      l('sinus', 'Thick yellow-green mucus with face pain', 'पीला-हरा गाढ़ा बलगम + चेहरे में दर्द', 'Sinusitis signs', true),
+      l('ear', 'Ear blockage / pain', 'कान बंद / दर्द', 'Ear involvement'),
+      l('wheeze', 'Cough with wheezing', 'घरघराहट वाली खांसी', 'Wheeze', true),
+      l('none', 'None of these', 'इनमें से कुछ नहीं', 'None', false, true),
+    ],
+  },
+  {
+    id: 'cc_q4', key: 'risk', type: 'multi',
+    question: q('Which apply to you?', 'इनमें से क्या लागू होता है?'),
+    options: [
+      l('asthma', 'Asthma / allergy history', 'दमा / एलर्जी का इतिहास', 'Atopy'),
+      l('chronic', 'BP / diabetes / heart patient', 'BP / शुगर / दिल के रोगी', 'Chronic disease', true),
+      l('smoker', 'Smoker', 'धूम्रपान', 'Smoking'),
+      l('none', 'None of the above', 'इनमें से कोई नहीं', 'None', false, true),
+    ],
+  },
+  {
+    id: 'cc_q5', key: 'severity', type: 'scale', min: 1, max: 10,
+    question: q('How sick do you feel (1–10)?', 'कितनी तकलीफ लग रही है? (1–10)'),
+    labels: { en: ['Little','','','Some','','','Lot','','','Severe'], hi: ['थोड़ी','','','कुछ','','','ज़्यादा','','','बहुत'] },
+  },
+]
+
+// FLU
+export const fluFlow = [
+  {
+    id: 'fl_q1', key: 'onset', type: 'single',
+    question: q('How did the illness begin?', 'बीमारी कैसे शुरू हुई?'),
+    options: [
+      l('sudden', 'Sudden high fever with chills', 'अचानक तेज़ बुखार + ठंड', 'Abrupt febrile'),
+      l('cold', 'Cold first, then fever', 'पहले सर्दी, फिर बुखार', 'Coryzal onset'),
+      l('ache', 'Fever with breaking body ache', 'बुखार + टूटता बदन दर्द', 'Myalgic onset'),
+      l('cough', 'Fever with dry cough', 'बुखार + सूखी खांसी', 'Respiratory onset'),
+    ],
+  },
+  {
+    id: 'fl_q2', key: 'associated', type: 'multi',
+    question: q('Do you also have?', 'क्या साथ में यह भी है?'),
+    options: [
+      l('bodyache', 'Severe body ache', 'तेज़ बदन दर्द', 'Myalgia'),
+      l('drycough', 'Dry cough', 'सूखी खांसी', 'Dry cough'),
+      l('sorethroat', 'Sore throat', 'गले में खराश', 'Sore throat'),
+      l('breath', 'Breathlessness', 'सांस फूलना', 'Dyspnea', true),
+      l('confusion', 'Confusion / drowsiness', 'भ्रम / सुस्ती', 'Confusion', true),
+      l('none', 'None of these', 'इनमें से कुछ नहीं', 'None', false, true),
+    ],
+  },
+  {
+    id: 'fl_q3', key: 'temperature', type: 'single',
+    question: q('How high is the fever?', 'बुखार कितना है?'),
+    options: [
+      l('low', 'Below 100°F', '100°F से कम', 'Low grade'),
+      l('mid', '100–102°F', '100-102°F', 'Moderate'),
+      l('high', '102–104°F', '102-104°F', 'High grade'),
+      l('vhigh', 'Above 104°F', '104°F से ऊपर', 'Very high', true),
+    ],
+  },
+  {
+    id: 'fl_q4', key: 'risk', type: 'multi',
+    question: q('Are you in a high-risk group?', 'क्या आप ज़्यादा जोखिम वाले समूह में हैं?'),
+    options: [
+      l('elderchild', 'Elderly / small child', 'बुजुर्ग / छोटा बच्चा', 'Vulnerable age', true),
+      l('preg', 'Pregnant', 'गर्भवती', 'Pregnancy', true),
+      l('chronic', 'Asthma / diabetes / heart disease', 'दमा / शुगर / दिल की बीमारी', 'Chronic disease', true),
+      l('none', 'None of the above', 'इनमें से कोई नहीं', 'None', false, true),
+    ],
+  },
+  {
+    id: 'fl_q5', key: 'duration', type: 'single',
+    question: q('Fever since?', 'बुखार कब से है?'),
+    options: [
+      l('d12', '1–2 days', '1-2 दिन', '1-2 days'),
+      l('d35', '3–5 days', '3-5 दिन', '3-5 days'),
+      l('more5', 'More than 5 days', '5 दिन से ज़्यादा', '>5 days', true),
+    ],
+  },
+]
+
+// ACNE
+export const acneFlow = [
+  {
+    id: 'ac_q1', key: 'character', type: 'single',
+    question: q('What do you see on the skin?', 'त्वचा पर क्या दिखता है?'),
+    options: [
+      l('comedones', 'Blackheads / whiteheads', 'ब्लैकहेड्स / व्हाइटहेड्स', 'Comedonal'),
+      l('red', 'Red painful pimples', 'लाल दर्द वाले दाने', 'Papular'),
+      l('pus', 'Pus-filled boils', 'मवाद वाले फोड़े', 'Pustular'),
+      l('lumps', 'Deep painful lumps with scars', 'गहरी गांठें + दाग', 'Nodular with scarring', true),
+    ],
+  },
+  {
+    id: 'ac_q2', key: 'extent', type: 'single',
+    question: q('How widespread is it?', 'कितना फैला है?'),
+    options: [
+      l('face', 'Face only', 'सिर्फ चेहरा', 'Face only'),
+      l('faceback', 'Face + back / chest', 'चेहरा + पीठ / छाती', 'Face and trunk'),
+      l('hormonal', 'With hair fall / dandruff / irregular periods', 'बाल झड़ना / रूसी / अनियमित मासिक के साथ', 'Hormonal pattern', true),
+    ],
+  },
+  {
+    id: 'ac_q3', key: 'habit', type: 'multi',
+    question: q('Which habits apply?', 'कौन सी आदतें हैं?'),
+    options: [
+      l('squeeze', 'Squeezing / picking pimples', 'मुंहासे फोड़ना / नोचना', 'Picking'),
+      l('cosmetic', 'Oily cosmetics / creams', 'तैलीय क्रीम / मेकअप', 'Comedogenic cosmetics'),
+      l('supplement', 'Protein / steroid supplements', 'प्रोटीन / स्टेरॉयड सप्लीमेंट', 'Supplements'),
+      l('none', 'None of these', 'इनमें से कुछ नहीं', 'None', false, true),
+    ],
+  },
+  {
+    id: 'ac_q4', key: 'duration', type: 'single',
+    question: q('Since when?', 'कब से है?'),
+    options: [
+      l('weeks', 'Few weeks', 'कुछ हफ्ते', 'Weeks'),
+      l('months', 'Few months', 'कुछ महीने', 'Months'),
+      l('years', 'Years', 'सालों से', 'Years'),
+    ],
+  },
+  {
+    id: 'ac_q5', key: 'severity', type: 'scale', min: 1, max: 10,
+    question: q('How much does it bother you (1–10)?', 'कितनी परेशानी है? (1–10)'),
+    labels: { en: ['Little','','','Some','','','Lot','','','Severe'], hi: ['थोड़ी','','','कुछ','','','ज़्यादा','','','बहुत'] },
+  },
+]
+
+// FUNGAL INFECTION
+export const fungalFlow = [
+  {
+    id: 'fu_q1', key: 'site', type: 'single',
+    question: q('Where is the patch?', 'दाना / चकत्ता कहाँ है?'),
+    options: [
+      l('groin', 'Groin / inner thigh', 'जांघ / कच्छा', 'Groin'),
+      l('feet', 'Feet / between toes', 'पैर / उंगलियों के बीच', 'Feet'),
+      l('body', 'Body in round rings', 'शरीर पर गोल चकत्ते', 'Body rings'),
+      l('scalp', 'Scalp with hair loss', 'सिर में बाल झड़ने के साथ', 'Scalp', true),
+    ],
+  },
+  {
+    id: 'fu_q2', key: 'character', type: 'single',
+    question: q('How does it look and feel?', 'कैसा दिखता / लगता है?'),
+    options: [
+      l('rings', 'Round itchy rings spreading outward', 'गोल खुजली वाले चकत्ते फैल रहे', 'Spreading rings'),
+      l('scaling', 'White powdery scaling', 'सफेद पपड़ी', 'Scaling'),
+      l('pus', 'Boils with pus', 'मवाद वाले फोड़े', 'Pustular', true),
+      l('dark', 'Dark thick patch, not improving for months', 'काला मोटा दाना, महीनों से ठीक नहीं', 'Chronic resistant', true),
+    ],
+  },
+  {
+    id: 'fu_q3', key: 'habit', type: 'multi',
+    question: q('Which apply to you?', 'इनमें से क्या लागू होता है?'),
+    options: [
+      l('towel', 'Sharing towel / clothes', 'तौलिया / कपड़े साझा करना', 'Sharing'),
+      l('sweat', 'Sweating all day', 'दिनभर पसीना', 'Sweating'),
+      l('steroid', 'Using steroid cream (Betnovate etc.)', 'स्टेरॉयड क्रीम लगाना', 'Steroid misuse', true),
+      l('diabetes', 'Diabetes', 'डायबिटीज', 'Diabetes'),
+      l('none', 'None of these', 'इनमें से कोई नहीं', 'None', false, true),
+    ],
+  },
+  {
+    id: 'fu_q4', key: 'duration', type: 'single',
+    question: q('Since when?', 'कब से है?'),
+    options: [
+      l('days', 'Few days', 'कुछ दिन', 'Days'),
+      l('weeks', 'Few weeks', 'कुछ हफ्ते', 'Weeks'),
+      l('months', 'Months', 'महीनों से', 'Chronic', true),
+    ],
+  },
+  {
+    id: 'fu_q5', key: 'severity', type: 'scale', min: 1, max: 10,
+    question: q('Itching severity (1–10)?', 'खुजली कितनी तेज़ है? (1–10)'),
+    labels: { en: ['Mild','','','Moderate','','','Severe','','','Unbearable'], hi: ['हल्की','','','मध्यम','','','तेज़','','','असहनीय'] },
+  },
+]
+
+// ─────────────────────────────────────────────
 // Registry — maps condition ID → flow
 // ─────────────────────────────────────────────
 export const DISEASE_FLOWS = {
@@ -669,25 +1718,111 @@ export const DISEASE_FLOWS = {
   urinary:        urinaryFlow,
   mental_health:  mentalHealthFlow,
   fatigue:        fatigueFlow,
+  // ── Extended conditions: each has its OWN tailored interview ──
+  palpitations:   palpitationsFlow,
+  hypertension:   hypertensionFlow,
+  asthma:         breathingFlow,
+  common_cold:    coldFlow,
+  vertigo:        vertigoFlow,
+  seizure:        seizureFlow,
+  neck_pain:      neckPainFlow,
+  muscle_pain:    musclePainFlow,
+  flu:            fluFlow,
+  dehydration:    dehydrationFlow,
+  diarrhea:       diarrheaFlow,
+  constipation:   constipationFlow,
+  vomiting:       vomitingFlow,
+  acne:           acneFlow,
+  fungal_infection: fungalFlow,
+  red_eye:        eyeFlow,
+  vision_problems: eyeFlow,
+  ear_pain:       earPainFlow,
+  sore_throat:    soreThroatFlow,
+  thyroid:        thyroidFlow,
+  obesity:        obesityFlow,
+  kidney_stone:   kidneyStoneFlow,
+  menstrual_pain: menstrualFlow,
+  pregnancy_care: genericFlow,
+  toothache:      genericFlow,
+  gum_problems:   genericFlow,
 }
+
+// ─────────────────────────────────────────────
+// Categories for the Symptom Picker UI
+// ─────────────────────────────────────────────
+export const CATEGORIES = [
+  { id: 'general',  en: 'General',              hi: 'सामान्य' },
+  { id: 'cardiac',  en: 'Cardiac',              hi: 'हृदय रोग' },
+  { id: 'respiratory', en: 'Respiratory',       hi: 'श्वसन रोग' },
+  { id: 'gastro',   en: 'Gastrointestinal',     hi: 'पेट व पाचन' },
+  { id: 'neuro',    en: 'Neurological',         hi: 'मस्तिष्क व नसें' },
+  { id: 'musculo',  en: 'Bone & Muscle',        hi: 'हड्डी व मांसपेशी' },
+  { id: 'metabolic', en: 'Metabolic',           hi: 'चयापचय' },
+  { id: 'derm',     en: 'Skin',                 hi: 'त्वचा' },
+  { id: 'eye',      en: 'Eye',                  hi: 'आंख' },
+  { id: 'ent',      en: 'Ear, Nose & Throat',   hi: 'कान-नाक-गला' },
+  { id: 'uro',      en: 'Urinary & Kidney',     hi: 'पेशाब व गुर्दा' },
+  { id: 'women',    en: "Women's Health",       hi: 'महिला स्वास्थ्य' },
+  { id: 'oral',     en: 'Oral Health',          hi: 'दांत व मुंह' },
+  { id: 'mental',   en: 'Mental Health',        hi: 'मानसिक स्वास्थ्य' },
+]
 
 // ─────────────────────────────────────────────
 // Condition metadata for the Symptom Picker UI
 // ─────────────────────────────────────────────
 export const CONDITIONS = [
-  { id: 'chest_pain',     en: 'Chest Pain',          hi: 'सीने में दर्द',       emoji: '🫀', color: 'red' },
-  { id: 'headache',       en: 'Headache',             hi: 'सिरदर्द',             emoji: '🧠', color: 'purple' },
-  { id: 'fever',          en: 'Fever',                hi: 'बुखार',               emoji: '🌡️', color: 'orange' },
-  { id: 'abdominal_pain', en: 'Abdominal Pain',       hi: 'पेट दर्द',            emoji: '🫁', color: 'yellow' },
-  { id: 'breathing',      en: 'Breathing Difficulty', hi: 'सांस की तकलीफ',       emoji: '💨', color: 'blue' },
-  { id: 'joint_pain',     en: 'Joint / Bone Pain',    hi: 'जोड़ों / हड्डियों में दर्द', emoji: '🦴', color: 'indigo' },
-  { id: 'back_pain',      en: 'Back Pain',            hi: 'पीठ / कमर दर्द',      emoji: '🔩', color: 'slate' },
-  { id: 'diabetes',       en: 'Diabetes Symptoms',    hi: 'डायबिटीज़ के लक्षण',  emoji: '🩸', color: 'pink' },
-  { id: 'dizziness',      en: 'Dizziness',            hi: 'चक्कर आना',           emoji: '💫', color: 'teal' },
-  { id: 'cough',          en: 'Cough',                hi: 'खांसी',               emoji: '🤧', color: 'green' },
-  { id: 'skin_rash',      en: 'Skin Rash',            hi: 'त्वचा के दाने',        emoji: '🌸', color: 'rose' },
-  { id: 'eye_problems',   en: 'Eye Problems',         hi: 'आँखों की समस्या',     emoji: '👁️', color: 'cyan' },
-  { id: 'urinary',        en: 'Urinary Problems',     hi: 'पेशाब की समस्या',     emoji: '💧', color: 'sky' },
-  { id: 'mental_health',  en: 'Anxiety / Mental Health', hi: 'चिंता / मानसिक स्वास्थ्य', emoji: '🧘', color: 'violet' },
-  { id: 'fatigue',        en: 'Weakness / Fatigue',   hi: 'कमज़ोरी / थकान',      emoji: '⚡', color: 'amber' },
+  { id: 'chest_pain',     en: 'Chest Pain',          hi: 'सीने में दर्द',       emoji: '🫀', color: 'red',    cat: 'cardiac' },
+  { id: 'headache',       en: 'Headache',             hi: 'सिरदर्द',             emoji: '🧠', color: 'purple', cat: 'neuro' },
+  { id: 'fever',          en: 'Fever',                hi: 'बुखार',               emoji: '🌡️', color: 'orange', cat: 'general' },
+  { id: 'abdominal_pain', en: 'Abdominal Pain',       hi: 'पेट दर्द',            emoji: '🫁', color: 'yellow', cat: 'gastro' },
+  { id: 'breathing',      en: 'Breathing Difficulty', hi: 'सांस की तकलीफ',       emoji: '💨', color: 'blue',   cat: 'respiratory' },
+  { id: 'joint_pain',     en: 'Joint / Bone Pain',    hi: 'जोड़ों / हड्डियों में दर्द', emoji: '🦴', color: 'indigo', cat: 'musculo' },
+  { id: 'back_pain',      en: 'Back Pain',            hi: 'पीठ / कमर दर्द',      emoji: '🔩', color: 'slate',  cat: 'musculo' },
+  { id: 'diabetes',       en: 'Diabetes Symptoms',    hi: 'डायबिटीज़ के लक्षण',  emoji: '🩸', color: 'pink',   cat: 'metabolic' },
+  { id: 'dizziness',      en: 'Dizziness',            hi: 'चक्कर आना',           emoji: '💫', color: 'teal',   cat: 'neuro' },
+  { id: 'cough',          en: 'Cough',                hi: 'खांसी',               emoji: '🤧', color: 'green',  cat: 'respiratory' },
+  { id: 'skin_rash',      en: 'Skin Rash',            hi: 'त्वचा के दाने',        emoji: '🌸', color: 'rose',   cat: 'derm' },
+  { id: 'eye_problems',   en: 'Eye Problems',         hi: 'आँखों की समस्या',     emoji: '👁️', color: 'cyan',   cat: 'eye' },
+  { id: 'urinary',        en: 'Urinary Problems',     hi: 'पेशाब की समस्या',     emoji: '💧', color: 'sky',    cat: 'uro' },
+  { id: 'mental_health',  en: 'Anxiety / Mental Health', hi: 'चिंता / मानसिक स्वास्थ्य', emoji: '🧘', color: 'violet', cat: 'mental' },
+  { id: 'fatigue',        en: 'Weakness / Fatigue',   hi: 'कमज़ोरी / थकान',      emoji: '⚡', color: 'amber',  cat: 'general' },
+  // ── Cardiac ──
+  { id: 'palpitations',   en: 'Palpitations',         hi: 'दिल तेज़ धड़कना',     emoji: '💓', color: 'red',    cat: 'cardiac' },
+  { id: 'hypertension',   en: 'High Blood Pressure',  hi: 'हाई ब्लड प्रेशर',     emoji: '🩺', color: 'red',    cat: 'cardiac' },
+  // ── Respiratory ──
+  { id: 'asthma',         en: 'Asthma',               hi: 'दमा',                 emoji: '🌬️', color: 'blue',   cat: 'respiratory' },
+  { id: 'common_cold',    en: 'Common Cold',          hi: 'सर्दी-जुकाम',         emoji: '🤧', color: 'green',  cat: 'respiratory' },
+  // ── Neurological ──
+  { id: 'vertigo',        en: 'Vertigo',              hi: 'घूमता चक्कर',         emoji: '🌀', color: 'teal',   cat: 'neuro' },
+  { id: 'seizure',        en: 'Seizure Symptoms',     hi: 'दौरे के लक्षण',       emoji: '⚠️', color: 'purple', cat: 'neuro' },
+  // ── Bone & Muscle ──
+  { id: 'neck_pain',      en: 'Neck Pain',            hi: 'गर्दन दर्द',          emoji: '🧍', color: 'indigo', cat: 'musculo' },
+  { id: 'muscle_pain',    en: 'Muscle Pain',          hi: 'मांसपेशी दर्द',       emoji: '💪', color: 'slate',  cat: 'musculo' },
+  // ── General ──
+  { id: 'flu',            en: 'Flu',                  hi: 'फ्लू',                emoji: '🤒', color: 'orange', cat: 'general' },
+  { id: 'dehydration',    en: 'Dehydration',          hi: 'पानी की कमी',         emoji: '🥤', color: 'amber',  cat: 'general' },
+  // ── Gastrointestinal ──
+  { id: 'diarrhea',       en: 'Diarrhea',             hi: 'दस्त',                emoji: '🚻', color: 'yellow', cat: 'gastro' },
+  { id: 'constipation',   en: 'Constipation',         hi: 'कब्ज',                emoji: '🚽', color: 'amber',  cat: 'gastro' },
+  { id: 'vomiting',       en: 'Vomiting',             hi: 'उल्टी',               emoji: '🤮', color: 'orange', cat: 'gastro' },
+  // ── Skin ──
+  { id: 'acne',           en: 'Acne / Pimples',       hi: 'मुंहासे',              emoji: '🫧', color: 'rose',   cat: 'derm' },
+  { id: 'fungal_infection', en: 'Fungal Infection',   hi: 'फंगल संक्रमण',       emoji: '🍄', color: 'green',  cat: 'derm' },
+  // ── Eye ──
+  { id: 'red_eye',        en: 'Red Eye',              hi: 'आंखों की लाली',       emoji: '🔴', color: 'cyan',   cat: 'eye' },
+  { id: 'vision_problems', en: 'Vision Problems',     hi: 'धुंधला दिखना',        emoji: '👓', color: 'cyan',   cat: 'eye' },
+  // ── ENT ──
+  { id: 'ear_pain',       en: 'Ear Pain',             hi: 'कान दर्द',            emoji: '👂', color: 'sky',    cat: 'ent' },
+  { id: 'sore_throat',    en: 'Sore Throat',          hi: 'गले में खराश',        emoji: '🗣️', color: 'sky',    cat: 'ent' },
+  // ── Metabolic ──
+  { id: 'thyroid',        en: 'Thyroid Symptoms',     hi: 'थायरॉइड के लक्षण',    emoji: '🦋', color: 'pink',   cat: 'metabolic' },
+  { id: 'obesity',        en: 'Obesity / Weight Gain', hi: 'मोटापा / वजन बढ़ना', emoji: '⚖️', color: 'pink',   cat: 'metabolic' },
+  // ── Urinary & Kidney ──
+  { id: 'kidney_stone',   en: 'Kidney Stone Symptoms', hi: 'पथरी के लक्षण',      emoji: '🪨', color: 'sky',    cat: 'uro' },
+  // ── Women's Health ──
+  { id: 'menstrual_pain', en: 'Menstrual Pain',       hi: 'मासिक धर्म दर्द',     emoji: '🌺', color: 'pink',   cat: 'women' },
+  { id: 'pregnancy_care', en: 'Pregnancy Care',       hi: 'गर्भावस्था देखभाल',   emoji: '🤰', color: 'pink',   cat: 'women' },
+  // ── Oral Health ──
+  { id: 'toothache',      en: 'Toothache',            hi: 'दांत दर्द',            emoji: '🦷', color: 'slate',  cat: 'oral' },
+  { id: 'gum_problems',   en: 'Gum Problems',         hi: 'मसूड़ों की समस्या',   emoji: '👄', color: 'slate',  cat: 'oral' },
 ]

@@ -383,7 +383,7 @@ export function Screen2Converse() {
     : currentQuestion.question
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
+    <div className="compact-screen min-h-screen bg-slate-50 flex flex-col">
       {showRedFlagAlert && (
         <div className="w-full bg-medical-red text-white px-4 py-3" role="alert" aria-live="assertive">
           <div className="max-w-6xl mx-auto flex items-center justify-center gap-3">

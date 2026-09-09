@@ -14,6 +14,7 @@ const initialState = {
   patientLocation: null,      // { lat, lon, area, city, state, postcode, displayName, source }
   activeAppointment: null,    // Booked appointment details
   selectedCondition: null,   // e.g. 'chest_pain', 'fever', etc.
+  consultEntry: 'full',      // 'full' | 'hospitals' | 'appointment' — controls Screen4Consult view
   clinicalHistory: {
     responses: [],
     redFlagCount: 0,
@@ -49,6 +50,11 @@ function kioskReducer(state, action) {
       return {
         ...state,
         activeAppointment: action.payload,
+      }
+    case 'SET_CONSULT_ENTRY':
+      return {
+        ...state,
+        consultEntry: action.payload,
       }
     case 'CLEAR_APPOINTMENT':
       return {
@@ -126,6 +132,7 @@ export function KioskProvider({ children }) {
     setConsent:         (consent)    => dispatch({ type: 'SET_CONSENT',         payload: consent }),
     setLocation:        (loc)        => dispatch({ type: 'SET_LOCATION',        payload: loc }),
     setAppointment:     (appt)       => dispatch({ type: 'SET_APPOINTMENT',     payload: appt }),
+    setConsultEntry:    (entry)      => dispatch({ type: 'SET_CONSULT_ENTRY',   payload: entry }),
     clearAppointment:   ()           => dispatch({ type: 'CLEAR_APPOINTMENT' }),
     setCondition:       (condId)     => dispatch({ type: 'SET_CONDITION',       payload: condId }),
     addResponse:        (response)   => dispatch({ type: 'ADD_RESPONSE',        payload: response }),

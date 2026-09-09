@@ -78,6 +78,17 @@
   .text-kiosk-xl { font-size: var(--font-size-kiosk-xl); }
   .text-kiosk-2xl { font-size: var(--font-size-kiosk-2xl); }
   .text-kiosk-3xl { font-size: var(--font-size-kiosk-3xl); }
+
+  /* Compact reading mode for Questions / Documents / Prescription screens:
+     steps every kiosk font one size down so more content fits on one
+     screen, while keeping everything >=16px and elderly-legible. */
+  .compact-screen .text-kiosk-3xl { font-size: 2.5rem; }
+  .compact-screen .text-kiosk-2xl { font-size: 2rem; }
+  .compact-screen .text-kiosk-xl { font-size: 1.65rem; }
+  .compact-screen .text-kiosk-lg { font-size: 1.4rem; }
+  .compact-screen .text-kiosk-base { font-size: 1.2rem; }
+  .compact-screen .text-kiosk-sm { font-size: 1.05rem; }
+  .compact-screen .text-kiosk-xs { font-size: 1rem; }
   
   .min-h-touch { min-height: var(--min-height-touch); }
   .min-h-touch-lg { min-height: var(--min-height-touch-lg); }

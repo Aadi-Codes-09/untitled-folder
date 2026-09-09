@@ -1,12 +1,91 @@
 import { useState, useEffect } from 'react'
-import { Globe, Shield, Volume2, HelpCircle } from 'lucide-react'
+import {
+  Mic, ArrowRight, ChevronRight, ShieldCheck, Globe,
+  FileCheck2, Users, Info, Zap, User,
+} from 'lucide-react'
 import { Button } from '../ui/Button'
-import { Input } from '../ui/Input'
-import { Card } from '../ui/Card'
-import { ProgressBar } from '../ui/ProgressBar'
 import { useKiosk } from '../../context/KioskContext'
 import { useSpeechInteraction } from '../../hooks/useSpeechInteraction'
 import { t } from '../../data/mockData'
+
+const STEPS = [
+  { en: 'Identify', hi: 'पहचान' },
+  { en: 'Symptoms', hi: 'लक्षण' },
+  { en: 'Questions', hi: 'प्रश्न' },
+  { en: 'Documents', hi: 'दस्तावेज़' },
+  { en: 'Consultation', hi: 'परामर्श' },
+]
+
+const STR = {
+  en: {
+    subtitle: 'AI-Powered Clinical History Kiosk',
+    leftLines: ['Accessible', 'Affordable', 'Smarter Healthcare', 'for Every Indian'],
+    betterCare: ['Better', 'Care', 'Brighter', 'Lives'],
+    peopleFirst: ['People First', 'Technology for Impact'],
+    welcome: 'Welcome to',
+    assistant: ['Your AI-powered', 'health assistant'],
+    speakOrTouch: ['You can speak', 'or touch'],
+    speakDesc: ['Tell us what you\u2019re feeling', 'in your own words.'],
+    speakBegin: 'Speak to begin',
+    speaking: 'Speaking…',
+    speakHint: 'You can speak in Hindi or English',
+    formTitle: 'Let\u2019s get you started',
+    formSub: ['Enter your ABHA ID or mobile number', 'to continue.'],
+    idLabel: 'ABHA ID / Mobile Number',
+    idPh: 'e.g., 12-3456-7890-1234 or 9876543210',
+    consent: 'I consent to share my health information under ABDM guidelines for this consultation.',
+    learnMore: 'ⓘ Learn more',
+    continue: 'Continue',
+    demo: 'Try Demo Mode',
+    demoSub: 'Explore the full application without real data',
+    trust: [
+      { title: 'Secure & Private', sub: 'Your data, your consent' },
+      { title: 'Bilingual Support', sub: 'English & हिन्दी' },
+      { title: 'ABDM Compliant', sub: 'Standards-based' },
+      { title: 'For Every Indian', sub: 'Accessible & Inclusive' },
+    ],
+    quote: ['❝ Technology', 'that listens, cares', 'and connects..”'],
+    footerMid: 'AI for Accessible Healthcare',
+    footerRight: '🇮🇳 Viksit Bharat through Digital Health',
+    instructions: 'Instructions',
+    listen: 'Listen',
+    stop: 'Stop',
+  },
+  hi: {
+    subtitle: 'AI-संचालित क्लिनिकल हिस्ट्री कियोस्क',
+    leftLines: ['सुलभ', 'किफायती', 'स्मार्ट स्वास्थ्य सेवा', 'हर भारतीय के लिए'],
+    betterCare: ['बेहतर', 'देखभाल', 'उज्ज्वल', 'जीवन'],
+    peopleFirst: ['लोग पहले', 'प्रभाव के लिए तकनीक'],
+    welcome: 'स्वागत है',
+    assistant: ['आपका AI-संचालित', 'स्वास्थ्य सहायक'],
+    speakOrTouch: ['आप बोल सकते हैं', 'या स्पर्श करें'],
+    speakDesc: ['बताएं आपको कैसा महसूस', 'हो रहा है, अपने शब्दों में।'],
+    speakBegin: 'बोलना शुरू करें',
+    speaking: 'बोल रहा है…',
+    speakHint: 'आप हिंदी या अंग्रेजी में बोल सकते हैं',
+    formTitle: 'आइए शुरू करते हैं',
+    formSub: ['जारी रखने के लिए अपना', 'ABHA ID या मोबाइल नंबर दर्ज करें।'],
+    idLabel: 'ABHA ID / मोबाइल नंबर',
+    idPh: 'जैसे, 12-3456-7890-1234 या 9876543210',
+    consent: 'मैं इस परामर्श के लिए ABDM दिशानिर्देशों के तहत अपनी स्वास्थ्य जानकारी साझा करने की सहमति देता/देती हूं।',
+    learnMore: 'ⓘ और जानें',
+    continue: 'आगे बढ़ें',
+    demo: 'डेमो मोड आज़माएं',
+    demoSub: 'बिना असली डेटा के पूरा ऐप देखें',
+    trust: [
+      { title: 'सुरक्षित व निजी', sub: 'आपका डेटा, आपकी सहमति' },
+      { title: 'द्विभाषी सहायता', sub: 'English व हिन्दी' },
+      { title: 'ABDM अनुपालन', sub: 'मानक-आधारित' },
+      { title: 'हर भारतीय के लिए', sub: 'सुलभ व समावेशी' },
+    ],
+    quote: ['❝ तकनीक जो सुनती है,', 'परवाह करती है', 'और जोड़ती है..”'],
+    footerMid: 'सुलभ स्वास्थ्य सेवा के लिए AI',
+    footerRight: '🇮🇳 डिजिटल स्वास्थ्य से विकसित भारत',
+    instructions: 'निर्देश',
+    listen: 'सुनें',
+    stop: 'रोकें',
+  },
+}
 
 export function Screen1Identify() {
   const { state, actions } = useKiosk()
@@ -15,8 +94,9 @@ export function Screen1Identify() {
   const [idError, setIdError] = useState('')
 
   const lang = state.language
+  const s = STR[lang === 'hi' ? 'hi' : 'en']
 
-  const instructionsText = lang === 'hi' 
+  const instructionsText = lang === 'hi'
     ? 'मेडीकियोस्क में आपका स्वागत है। अपनी भाषा चुनें। फिर अपना ABHA ID, आधार या फोन नंबर दर्ज करें। सहमति चेकबॉक्स पर टिक करें। फिर "आकलन शुरू करें" दबाएं।'
     : 'Welcome to MediKiosk. Select your language. Then enter your ABHA ID, Aadhaar, or phone number. Check the consent box. Then press Start Assessment.'
 
@@ -41,7 +121,7 @@ export function Screen1Identify() {
     actions.setPatientId('9876543210')
     actions.setConsent(true)
     setIdError('')
-    actions.setStep(2)
+    actions.setStep(0)
   }
 
   const handleConsentChange = (e) => {
@@ -57,171 +137,266 @@ export function Screen1Identify() {
       setIdError(t('consentRequired', lang))
       return
     }
-    actions.setStep(2)
+    actions.setStep(0)
   }
 
   const handleLanguageChange = (newLang) => {
     actions.setLanguage(newLang)
     cancel()
     if (newLang === 'hi') {
-      speak('नमस्ते, भाषा हिंदी चुनी गई है। कृपया अपना विवरण दर्ज करें।', { lang: 'hi-IN', rate: 0.85 })
+      speak('नमस्ते, भाषा हिंदी चुनी गई है। कृपया अपना विवरण दर्ज करें।', { lang: 'hi-IN', rate: 0.85 }).catch(() => {})
     } else {
-      speak('Language set to English. Please enter your details.', { lang: 'en-IN', rate: 0.85 })
+      speak('Language set to English. Please enter your details.', { lang: 'en-IN', rate: 0.85 }).catch(() => {})
     }
   }
 
+  const canContinue = state.patientDetails.consentGiven && state.patientDetails.abhaId.trim()
+
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
-      <ProgressBar 
-        currentStep={1} 
-        totalSteps={5} 
-        stepLabels={lang === 'hi' ? ['पहचान', 'लक्षण', 'प्रश्न', 'दस्तावेज़', 'दवाई व सलाह'] : ['Identify', 'Symptom', 'Questions', 'Documents', 'Prescription']}
-        hideOnStep={5} 
-      />
-      
-      <main className="flex-1 flex items-center justify-center p-4">
-        <div className="w-full max-w-4xl">
-          <div className="text-center mb-10">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-primary-600 mb-4">
-              <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-            </div>
-            <h1 className="text-kiosk-3xl font-bold text-slate-900 mb-2">{t('appName', lang)}</h1>
-            <p className="text-kiosk-xl text-slate-600">{t('tagline', lang)}</p>
+    <div className="min-h-screen bg-[#f2f6fb] flex flex-col text-slate-800">
+      {/* ── Header: logo + stepper ── */}
+      <header className="bg-white/90 backdrop-blur border-b border-slate-200 px-6 py-3 flex items-center justify-between gap-6">
+        <div className="flex items-center gap-3 shrink-0">
+          <div className="w-11 h-11 rounded-xl overflow-hidden flex items-center justify-center bg-gradient-to-br from-blue-600 to-emerald-500 shadow">
+            <span className="text-white text-2xl font-black">+</span>
           </div>
+          <div>
+            <p className="text-[22px] font-extrabold leading-none tracking-tight">
+              <span className="text-[#1e3a8a]">Medi</span><span className="text-[#34a853]">Kiosk</span>
+            </p>
+            <p className="text-[12px] text-slate-500 font-medium">{s.subtitle}</p>
+          </div>
+        </div>
 
-          <Card className="mb-6">
-            <div className="grid grid-cols-2 gap-4">
-              <Button
-                variant={lang === 'en' ? 'primary' : 'secondary'}
-                size="xl"
-                fullWidth
-                onClick={() => handleLanguageChange('en')}
-                className="min-h-[80px] text-kiosk-lg"
-              >
-                <Globe className="w-6 h-6" aria-hidden="true" />
-                English
-              </Button>
-              <Button
-                variant={lang === 'hi' ? 'primary' : 'secondary'}
-                size="xl"
-                fullWidth
-                onClick={() => handleLanguageChange('hi')}
-                className="min-h-[80px] text-kiosk-lg"
-              >
-                <Globe className="w-6 h-6" aria-hidden="true" />
-                हिंदी
-              </Button>
-            </div>
-          </Card>
-
-          <Card className="mb-6">
-            <div className="space-y-6">
-              <div>
-                <label htmlFor="patient-id" className="block text-kiosk-lg font-semibold text-slate-900 mb-3 flex items-center gap-2">
-                  <svg className="w-7 h-7 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                  {t('enterId', lang)}
-                </label>
-                <Input
-                  id="patient-id"
-                  type="text"
-                  placeholder={t('idPlaceholder', lang)}
-                  value={state.patientDetails.abhaId}
-                  onChange={handleIdChange}
-                  error={idError}
-                  autoComplete="off"
-                  maxLength={30}
-                  autoFocus
-                />
-              </div>
-
-              <div className="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200">
-                <input
-                  type="checkbox"
-                  id="consent-checkbox"
-                  checked={state.patientDetails.consentGiven}
-                  onChange={handleConsentChange}
-                  className="w-6 h-6 mt-1 text-primary-600 border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 cursor-pointer"
-                  aria-describedby="consent-text"
-                />
-                <label htmlFor="consent-checkbox" id="consent-text" className="text-kiosk-base text-slate-700 leading-relaxed cursor-pointer">
-                  {t('consentText', lang)}
-                </label>
-              </div>
-
-              {idError && (
-                <div className="flex items-center gap-2 text-medical-red text-kiosk-sm" role="alert">
-                  <svg className="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                  </svg>
-                  {idError}
+        {/* Stepper */}
+        <ol className="hidden md:flex items-center gap-0 flex-1 justify-center max-w-2xl" aria-label="Progress">
+          {STEPS.map((s, i) => {
+            const n = i + 1
+            const active = n === 1
+            const label = lang === 'hi' ? s.hi : s.en
+            return (
+              <li key={n} className="flex items-center flex-1 last:flex-none">
+                <div className="flex flex-col items-center gap-1 min-w-[76px]">
+                  <span className={`w-8 h-8 rounded-full flex items-center justify-center text-[15px] font-bold transition-all ${
+                    active ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'bg-slate-100 text-slate-400 border border-slate-200'
+                  }`}>
+                    {n}
+                  </span>
+                  <span className={`text-[12px] font-semibold ${active ? 'text-blue-700' : 'text-slate-400'}`}>{label}</span>
                 </div>
-              )}
-            </div>
-          </Card>
+                {n < 5 && <div className={`h-[2px] flex-1 mx-1 -mt-5 rounded ${n < 1 ? 'bg-blue-500' : 'bg-slate-200'}`} />}
+              </li>
+            )
+          })}
+        </ol>
+        <div className="w-[120px] hidden lg:block" />
+      </header>
 
-          {/* Demo Login Banner */}
-          <div className="mb-4 p-4 rounded-2xl border-2 border-dashed border-primary-300 bg-primary-50 flex flex-col sm:flex-row items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-primary-100 text-primary-700">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </span>
-              <div>
-                <p className="font-semibold text-primary-900 text-sm">{lang === 'hi' ? 'डेमो मोड' : 'Demo Mode'}</p>
-                <p className="text-primary-700 text-xs">{lang === 'hi' ? 'एक क्लिक में पूरा ऐप आज़माएं' : 'Try the full app in one click — no typing needed'}</p>
+      {/* ── Main 3-column ── */}
+      <main className="flex-1 w-full max-w-[1400px] mx-auto px-4 py-4 grid grid-cols-1 xl:grid-cols-[300px_1fr_1fr] gap-4 items-stretch">
+
+        {/* Left: brand panel */}
+        <section className="relative overflow-hidden rounded-3xl bg-gradient-to-b from-sky-100 via-white to-blue-200 border border-white shadow-sm hidden xl:flex flex-col">
+          <div className="p-5 pt-6">
+            <p className="text-[17px] leading-snug font-medium text-slate-500">
+              {s.leftLines.map((l, i) => (<span key={i}>{l}<br /></span>))}
+            </p>
+            <div className="w-8 h-[3px] bg-blue-800 rounded mt-3" />
+          </div>
+          {/* Kiosk illustration (CSS) */}
+          <div className="flex-1 flex items-center justify-center px-6 relative">
+            <div className="absolute right-4 top-0 bottom-0 w-24 bg-gradient-to-b from-sky-200/70 to-blue-300/50 rounded-l-[2rem] flex flex-col items-center justify-center gap-2 p-2 text-center">
+              <p className="text-white font-bold text-[15px] leading-tight drop-shadow">{s.betterCare.map((l, i) => (<span key={i}>{l}<br /></span>))}</p>
+              <span className="text-white/90 text-xl">♡</span>
+            </div>
+            <div className="relative bg-white rounded-2xl border-[6px] border-slate-800 w-40 shadow-2xl overflow-hidden mr-16">
+              <div className="bg-gradient-to-b from-sky-200 to-sky-50 p-3 flex flex-col items-center gap-1.5 min-h-[190px]">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-emerald-500 flex items-center justify-center">
+                  <span className="text-white font-black">+</span>
+                </div>
+                <p className="text-[13px] font-extrabold text-blue-900">MediKiosk</p>
+                <p className="text-[9px] text-slate-500 text-center leading-tight">Your Health<br />Our Support</p>
+                <div className="mt-1 w-full h-10 rounded-lg bg-white/80 border border-sky-200" />
+                <div className="w-16 h-5 rounded-full bg-blue-600/90" />
+              </div>
+              <div className="bg-slate-100 h-8 flex items-center justify-center">
+                <div className="w-10 h-1.5 bg-slate-800 rounded" />
               </div>
             </div>
+          </div>
+          {/* bottom wave */}
+          <div className="relative mt-2 bg-gradient-to-r from-emerald-500 to-blue-700 text-white px-5 py-4 rounded-t-[2rem]">
+            <p className="italic font-medium text-[15px] leading-snug">{s.peopleFirst.map((l, i) => (<span key={i}>{l}<br /></span>))}</p>
+          </div>
+        </section>
+
+        {/* Center: welcome + language + voice */}
+        <section className="bg-[#eaf3fe] rounded-3xl border border-white shadow-sm p-6 sm:p-8 flex flex-col">
+          <h1 className="text-[30px] leading-tight font-extrabold text-slate-900">
+            {s.welcome}<br />
+            <span className="text-[#1e3a8a]">Medi</span><span className="text-[#34a853]">Kiosk</span>
+          </h1>
+          <p className="mt-1 text-[19px] text-slate-700 font-medium leading-snug">{s.assistant.map((l, i) => (<span key={i}>{l}<br /></span>))}</p>
+
+          {/* Language */}
+          <div className="mt-5 grid grid-cols-2 gap-3">
             <button
-              type="button"
-              id="demo-login-btn"
-              onClick={handleDemoLogin}
-              className="shrink-0 flex items-center gap-2 px-5 py-3 rounded-xl bg-primary-600 hover:bg-primary-700 active:bg-primary-800 text-white font-bold text-sm shadow-md transition-all duration-150 cursor-pointer"
+              onClick={() => handleLanguageChange('en')}
+              className={`min-h-[60px] rounded-2xl font-bold text-[17px] flex items-center justify-center gap-2 transition-all active:scale-[0.98] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-300 ${
+                lang === 'en' ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/30' : 'bg-white text-slate-700 border border-slate-200 hover:border-blue-300'
+              }`}
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3l14 9-14 9V3z" />
-              </svg>
-              {lang === 'hi' ? 'डेमो लॉगिन' : 'Demo Login'}
+              <span className="text-xl">🇬🇧</span> English
+            </button>
+            <button
+              onClick={() => handleLanguageChange('hi')}
+              className={`min-h-[60px] rounded-2xl font-bold text-[17px] flex items-center justify-center gap-2 transition-all active:scale-[0.98] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-orange-300 ${
+                lang === 'hi' ? 'bg-blue-600 text-white shadow-lg' : 'bg-white text-slate-700 border border-slate-200 hover:border-orange-300'
+              }`}
+            >
+              <span className="text-xl">🇮🇳</span> हिन्दी
             </button>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              variant="secondary"
-              size="xl"
-              fullWidth={false}
-              onClick={() => {
-                setShowInstructions(true)
-                readInstructions()
-              }}
-              className="min-h-[72px]"
-              leftIcon={<Volume2 className={`w-7 h-7 ${isSpeaking ? 'text-primary-600 animate-pulse' : ''}`} aria-hidden="true" />}
-            >
-              {isSpeaking ? (lang === 'hi' ? 'बोल रहा है...' : 'Speaking...') : t('listenInstructions', lang)}
-            </Button>
-            <Button
-              variant="primary"
-              size="xxl"
-              fullWidth={false}
-              onClick={handleStart}
-              disabled={!state.patientDetails.consentGiven || !state.patientDetails.abhaId.trim()}
-              className="min-h-[88px] animate-bounce-subtle flex-1"
-              leftIcon={<Shield className="w-8 h-8" aria-hidden="true" />}
-            >
-              {t('startBtn', lang)}
-            </Button>
+          {/* Speak or touch */}
+          <div className="mt-6 flex items-start gap-4">
+            <div className="w-20 h-20 shrink-0 rounded-full bg-white border border-sky-100 shadow flex items-center justify-center text-5xl" aria-hidden="true">👨‍⚕️</div>
+            <div>
+              <p className="text-[19px] font-extrabold text-[#1e3a8a] leading-tight">{s.speakOrTouch.map((l, i) => (<span key={i}>{l}<br /></span>))}</p>
+              <p className="text-[15px] text-slate-500 mt-1">{s.speakDesc.map((l, i) => (<span key={i}>{l}<br /></span>))}</p>
+            </div>
           </div>
 
-          <p className="text-center text-kiosk-sm text-slate-500 mt-8 max-w-2xl mx-auto">
-            <HelpCircle className="w-5 h-5 inline-block align-middle mr-1" aria-hidden="true" />
-            This is a demo prototype. No real data is stored.
+          {/* Mic */}
+          <div className="mt-6 flex flex-col items-center">
+            <button
+              onClick={() => { setShowInstructions(true); readInstructions() }}
+              aria-label="Speak to begin"
+              className={`w-20 h-20 rounded-full flex items-center justify-center text-white shadow-xl transition-all hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-300 ${
+                isSpeaking ? 'bg-red-500 animate-pulse' : 'bg-blue-600 hover:bg-blue-700'
+              }`}
+            >
+              <Mic size={34} />
+            </button>
+            <p className="mt-3 font-extrabold text-[17px] text-slate-900">{isSpeaking ? s.speaking : s.speakBegin}</p>
+            <p className="text-[13px] text-slate-500">{s.speakHint}</p>
+          </div>
+        </section>
+
+        {/* Right: form card */}
+        <section className="bg-white rounded-3xl border border-slate-100 shadow-sm p-6 sm:p-8 flex flex-col">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <h2 className="text-[26px] font-extrabold text-slate-900 leading-tight">{s.formTitle}</h2>
+              <p className="text-[15px] text-slate-500 mt-1">{s.formSub.map((l, i) => (<span key={i}>{l}<br /></span>))}</p>
+            </div>
+            {/* ABHA badge */}
+            <div className="flex items-center gap-2 shrink-0">
+              <div className="w-11 h-11 rounded-full bg-gradient-to-b from-orange-400 to-emerald-600 flex items-center justify-center text-white font-black" aria-hidden="true">♀</div>
+              <div className="leading-none">
+                <p className="font-extrabold text-[#1e3a8a] text-[18px]">ABHA</p>
+                <p className="text-[10px] text-slate-500 font-semibold">Ayushman Bharat<br />Health Account</p>
+              </div>
+            </div>
+          </div>
+
+          <label htmlFor="patient-id" className="mt-6 flex items-center gap-2 text-[15px] font-bold text-slate-800">
+            <User size={18} className="text-blue-600" /> {s.idLabel}
+          </label>
+          <input
+            id="patient-id"
+            type="text"
+            value={state.patientDetails.abhaId}
+            onChange={handleIdChange}
+            placeholder={s.idPh}
+            autoComplete="off"
+            maxLength={30}
+            autoFocus
+            className={`mt-2 w-full min-h-[60px] px-5 rounded-2xl border-2 text-[16px] outline-none transition-colors bg-white placeholder:text-slate-400 ${
+              idError ? 'border-red-400 focus:border-red-500' : 'border-slate-200 focus:border-blue-500'
+            }`}
+          />
+
+          {/* Consent */}
+          <label htmlFor="consent-checkbox" className="mt-4 flex items-start gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              id="consent-checkbox"
+              checked={state.patientDetails.consentGiven}
+              onChange={handleConsentChange}
+              className="w-6 h-6 mt-0.5 rounded-md border-slate-300 text-blue-600 focus:ring-2 focus:ring-blue-500 cursor-pointer shrink-0"
+            />
+            <span className="text-[14px] leading-snug text-slate-600">
+              {s.consent}
+              <span className="block mt-1 text-blue-600 font-semibold text-[13px]">{s.learnMore}</span>
+            </span>
+          </label>
+
+          {idError && (
+            <p className="mt-3 text-[14px] font-semibold text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-2" role="alert">{idError}</p>
+          )}
+
+          <button
+            onClick={handleStart}
+            disabled={!canContinue}
+            className={`mt-5 w-full min-h-[60px] rounded-2xl font-bold text-[19px] flex items-center justify-center gap-3 transition-all focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-300 ${
+              canContinue ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-600/25 active:scale-[0.99]' : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+            }`}
+          >
+            {s.continue} <ArrowRight size={22} />
+          </button>
+
+          {/* OR divider */}
+          <div className="my-4 flex items-center gap-3 text-slate-400 text-[13px] font-semibold">
+            <div className="h-px flex-1 bg-slate-200" /> OR <div className="h-px flex-1 bg-slate-200" />
+          </div>
+
+          <button
+            onClick={handleDemoLogin}
+            className="w-full min-h-[68px] rounded-2xl bg-blue-50/70 hover:bg-blue-50 border border-blue-100 flex items-center gap-3 px-5 text-left transition-all active:scale-[0.99] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-300"
+          >
+            <Zap size={22} className="text-blue-600 shrink-0" />
+            <span className="flex-1">
+              <span className="block font-bold text-blue-700 text-[16px]">{s.demo}</span>
+              <span className="block text-[13px] text-slate-500">{s.demoSub}</span>
+            </span>
+            <ChevronRight size={22} className="text-blue-600" />
+          </button>
+        </section>
+      </main>
+
+      {/* ── Trust bar ── */}
+      <section className="w-full max-w-[1400px] mx-auto px-4 pb-2">
+        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm px-6 py-3 flex flex-wrap items-center gap-x-8 gap-y-2">
+          {s.trust.map((b, i) => {
+            const icons = [ShieldCheck, Globe, FileCheck2, Users]
+            const bgs = ['bg-emerald-500', 'bg-blue-600', 'bg-emerald-600', 'bg-blue-500']
+            const Icon = icons[i % icons.length]
+            return (
+              <div key={i} className="flex items-center gap-2.5">
+                <span className={`w-9 h-9 rounded-full ${bgs[i % bgs.length]} text-white flex items-center justify-center shrink-0`}>
+                  <Icon size={18} />
+                </span>
+                <span>
+                  <span className="block text-[14px] font-bold text-slate-800 leading-none">{b.title}</span>
+                  <span className="block text-[12px] text-slate-500 mt-0.5">{b.sub}</span>
+                </span>
+              </div>
+            )
+          })}
+          <p className="ml-auto hidden lg:block text-right italic text-[14px] text-slate-500 leading-snug">
+            {s.quote.map((l, i) => (<span key={i}>{l}<br /></span>))}
           </p>
         </div>
-      </main>
+      </section>
+
+      {/* ── Footer ── */}
+      <footer className="mt-2 bg-[#1e3a8a] text-white/90 text-[12px] font-medium px-6 py-2 flex items-center justify-center gap-3 flex-wrap">
+        <span>MediKiosk</span><span className="opacity-50">|</span>
+        <span>{s.footerMid}</span><span className="opacity-50">|</span>
+        <span>SIH 2026</span>
+        <span className="sm:ml-auto flex items-center gap-1.5">{s.footerRight}</span>
+      </footer>
 
       <ModalInstructions
         isOpen={showInstructions}
@@ -253,19 +428,19 @@ function ModalInstructions({ isOpen, onClose, lang, text, onSpeak, isSpeaking, t
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-150"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       aria-labelledby="instructions-title"
       onClick={onClose}
     >
       <div
-        className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200"
+        className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between p-5 border-b border-slate-200">
-          <h2 id="instructions-title" className="text-kiosk-xl font-bold text-slate-900">
-            {lang === 'hi' ? 'निर्देश' : 'Instructions'}
+          <h2 id="instructions-title" className="text-xl font-bold text-slate-900">
+            {STR[lang === 'hi' ? 'hi' : 'en'].instructions}
           </h2>
           <button
             type="button"
@@ -273,26 +448,25 @@ function ModalInstructions({ isOpen, onClose, lang, text, onSpeak, isSpeaking, t
             className="p-2 rounded-xl text-slate-500 hover:bg-slate-100 hover:text-slate-900 transition-colors cursor-pointer"
             aria-label="Close"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            ✕
           </button>
         </div>
         <div className="p-6">
-          <p className="text-kiosk-lg text-slate-700 leading-relaxed mb-6 whitespace-pre-wrap">{text}</p>
+          <p className="text-lg text-slate-700 leading-relaxed mb-6 whitespace-pre-wrap flex gap-2">
+            <Info size={20} className="shrink-0 mt-1 text-blue-600" />{text}
+          </p>
           <div className="flex justify-center">
             <Button
               variant={isSpeaking ? 'danger' : 'primary'}
               size="lg"
               onClick={onSpeak}
               disabled={!ttsSupported}
-              leftIcon={isSpeaking ? <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/></svg> : <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1zm30 5h-3.414a1 1 0 01-.707-.293l-5.414-5.414a1 1 0 00-.707-.293H6a1 1 0 01-1-1v-4a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1z"/></svg>}
             >
-              {isSpeaking ? (lang === 'hi' ? 'रोकें' : 'Stop') : (lang === 'hi' ? 'सुनें' : 'Listen')}
+              {isSpeaking ? STR[lang === 'hi' ? 'hi' : 'en'].stop : STR[lang === 'hi' ? 'hi' : 'en'].listen}
             </Button>
           </div>
           {!ttsSupported && (
-            <p className="text-center text-kiosk-sm text-amber-700 mt-4 bg-amber-50 px-4 py-2 rounded-lg">
+            <p className="text-center text-sm text-amber-700 mt-4 bg-amber-50 px-4 py-2 rounded-lg">
               Text-to-speech not supported in this browser.
             </p>
           )}

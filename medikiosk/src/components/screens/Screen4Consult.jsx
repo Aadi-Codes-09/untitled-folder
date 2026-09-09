@@ -72,6 +72,11 @@ export function Screen4Consult() {
 
   const suggestedMeds = advice.suggestedMedications || []
 
+  // Hospital-only mode: entered directly from Dashboard (Find Hospitals / Book Appointment)
+  // without completing assessment → hide other patient's/default medicines, show only location + hospitals.
+  const hasAssessment = !!(state.selectedCondition || state.clinicalHistory.responses.length > 0)
+  const isHospitalOnly = (state.consultEntry === 'hospitals' || state.consultEntry === 'appointment') || !hasAssessment
+
   const hpiItems = state.clinicalHistory.responses.map(r => ({
     label: r.question || r.questionKey,
     value: Array.isArray(r.answer) ? r.answer.join(', ') : String(r.answer),
@@ -315,7 +320,7 @@ export function Screen4Consult() {
   const currentTriage = triageStyles[advice.triageLevel] || triageStyles['self-care']
 
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-100 flex flex-col" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' }}>
+    <div className="compact-screen min-h-screen bg-slate-900 text-slate-100 flex flex-col" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' }}>
       {/* Top Navigation Header */}
       <header className="border-b border-slate-700 px-6 py-4">
         <div className="max-w-full mx-auto flex items-center justify-between">
@@ -325,24 +330,35 @@ export function Screen4Consult() {
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-2xl" aria-hidden="true">{conditionMeta.emoji}</span>
+                <span className="text-2xl" aria-hidden="true">{isHospitalOnly ? '🏥' : conditionMeta.emoji}</span>
                 <h1 className="text-kiosk-2xl font-bold text-white">
-                  {lang === 'hi' ? 'एआई डिजिटल ई-पर्चा एवं परामर्श' : 'AI Digital Prescription & Consultation'}
+                  {isHospitalOnly
+                    ? (lang === 'hi' ? 'नजदीकी अस्पताल व अपॉइंटमेंट' : 'Nearby Hospitals & Appointment')
+                    : (lang === 'hi' ? 'एआई डिजिटल ई-पर्चा एवं परामर्श' : 'AI Digital Prescription & Consultation')}
                 </h1>
               </div>
               <p className="text-kiosk-sm text-slate-400">
-                {chiefComplaint} • AI Symptom Assessment • {new Date().toLocaleDateString()}
+                {isHospitalOnly
+                  ? (lang === 'hi' ? 'अपना स्थान चुनें / पिनकोड डालें • नजदीकी अस्पताल देखें • अपॉइंटमेंट बुक करें' : 'Check your location / enter PIN • view nearby hospitals • book appointment')
+                  : (<>{chiefComplaint} • AI Symptom Assessment • {new Date().toLocaleDateString()}</>)}
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <Button variant="ghost" size="lg" onClick={handleBack} leftIcon={<ArrowRight className="w-5 h-5 rotate-180" aria-hidden="true" />}>
-              {lang === 'hi' ? 'दस्तावेज़ जोड़ें / बदलें' : 'Add / View Documents'}
+            <Button variant="ghost" size="lg" onClick={() => { cancel(); actions.setStep(0) }} leftIcon={<Home className="w-5 h-5" aria-hidden="true" />}>
+              {lang === 'hi' ? 'डैशबोर्ड' : 'Dashboard'}
             </Button>
-            <Button variant="secondary" size="lg" onClick={handlePrint} leftIcon={<Printer className="w-5 h-5" aria-hidden="true" />}>
-              {lang === 'hi' ? 'पर्चा प्रिंट करें' : 'Print Prescription'}
-            </Button>
+            {!isHospitalOnly && (
+              <Button variant="ghost" size="lg" onClick={handleBack} leftIcon={<ArrowRight className="w-5 h-5 rotate-180" aria-hidden="true" />}>
+                {lang === 'hi' ? 'दस्तावेज़ जोड़ें / बदलें' : 'Add / View Documents'}
+              </Button>
+            )}
+            {!isHospitalOnly && (
+              <Button variant="secondary" size="lg" onClick={handlePrint} leftIcon={<Printer className="w-5 h-5" aria-hidden="true" />}>
+                {lang === 'hi' ? 'पर्चा प्रिंट करें' : 'Print Prescription'}
+              </Button>
+            )}
             <Button variant="danger" size="lg" onClick={handleNextPatient} leftIcon={<RefreshCw className="w-5 h-5" aria-hidden="true" />}>
               {t('nextPatient', lang)}
             </Button>
@@ -354,6 +370,36 @@ export function Screen4Consult() {
       <main className="flex-1 overflow-y-auto p-6">
         <div className="max-w-7xl mx-auto space-y-6">
 
+          {isHospitalOnly && (
+            <div className="p-5 rounded-2xl bg-emerald-950/60 border-2 border-emerald-500/40 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <MapPin className="w-8 h-8 text-emerald-400 flex-shrink-0" />
+                <div>
+                  <h2 className="text-kiosk-lg font-bold text-white">
+                    {state.consultEntry === 'appointment'
+                      ? (lang === 'hi' ? 'अपॉइंटमेंट बुक करें — पहले स्थान चुनें' : 'Book appointment — confirm your location first')
+                      : (lang === 'hi' ? 'अपना स्थान जांचें और नजदीकी अस्पताल देखें' : 'Check your location and view nearby hospitals')}
+                  </h2>
+                  <p className="text-kiosk-sm text-slate-300">
+                    {lang === 'hi'
+                      ? 'नीचे GPS स्थान दिखेगा • “स्थान बदलें / पिनकोड” से 6-अंकीय पिन डालें • अस्पताल चुनकर स्लॉट बुक करें'
+                      : 'Your GPS location appears below • use “Change Location / PIN” to enter 6-digit PIN • pick a hospital to book a slot'}
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <Button variant="secondary" size="lg" onClick={() => setIsLocationModalOpen(true)} leftIcon={<MapPin className="w-5 h-5" aria-hidden="true" />}>
+                  {lang === 'hi' ? 'स्थान / पिनकोड डालें' : 'Set Location / PIN'}
+                </Button>
+                <Button variant="ghost" size="lg" onClick={() => { actions.setConsultEntry('full'); actions.setStep(2) }}>
+                  {lang === 'hi' ? 'स्वास्थ्य आकलन करें' : 'Start Health Assessment'}
+                </Button>
+              </div>
+            </div>
+          )}
+
+          {!isHospitalOnly && (
+          <>
           {/* 1. PRIMARY SECTION: AI PRESCRIBED MEDICINES (CENTERSTAGE) */}
           <div className="p-6 rounded-2xl bg-slate-800/90 border-2 border-primary-500/60 shadow-2xl">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-700">
@@ -870,6 +916,8 @@ export function Screen4Consult() {
               </div>
             )}
           </div>
+          </>
+          )}
           {/* 5. REAL-TIME LOCATION & NEARBY DOCTOR APPOINTMENT BOOKING SECTION */}
           <div className="p-6 rounded-2xl bg-slate-800/90 border-2 border-emerald-500/40 shadow-2xl">
             {/* Header */}

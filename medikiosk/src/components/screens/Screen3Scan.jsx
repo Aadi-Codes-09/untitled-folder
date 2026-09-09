@@ -259,11 +259,13 @@ export function Screen3Scan() {
   }, [uploadedFiles, actions, state.selectedCondition])
 
   const handleProceedToConsultation = () => {
+    actions.setConsultEntry('full')
     actions.setStep(5)
   }
 
   const handleSkipToConsultation = () => {
     cancel()
+    actions.setConsultEntry('full')
     actions.setStep(5)
   }
 
@@ -903,7 +905,7 @@ export function Screen3Scan() {
   )
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
+    <div className="compact-screen min-h-screen bg-slate-50 flex flex-col">
       <ProgressBar 
         currentStep={4} 
         totalSteps={5} 

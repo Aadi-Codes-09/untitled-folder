@@ -1,3 +1,4 @@
+export { KioskDashboard } from './KioskDashboard'
 export { Screen1Identify } from './Screen1Identify'
 export { Screen2SymptomPicker } from './Screen2SymptomPicker'
 export { Screen2Converse } from './Screen2Converse'
